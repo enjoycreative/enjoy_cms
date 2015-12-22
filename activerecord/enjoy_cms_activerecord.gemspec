@@ -3,7 +3,7 @@ $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
 
 lib = File.expand_path('../../lib', __FILE__)
 $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
-require 'enjoy_cms/version'
+require 'enjoy/version'
 
 Gem::Specification.new do |spec|
   spec.name          = 'enjoy_cms_activerecord'
