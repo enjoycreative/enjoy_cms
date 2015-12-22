@@ -20,7 +20,7 @@ gem 'rails', '~> 5.0.0.beta1'
 # gem 'sass'
 gem 'compass'
 
-#{if mongoid then "gem 'enjoy_cms_mongoid'" else "gem 'enjoy_cms_activerecord'" end}, '~> 0.1.0.beta1'
+#{if mongoid then "gem 'enjoy_cms_mongoid'" else "gem 'enjoy_cms_activerecord'" end}, '~> 0.1.0.beta1', git: 'https://github.com/enjoycreative/enjoy_cms'
 
 gem 'devise'
 
