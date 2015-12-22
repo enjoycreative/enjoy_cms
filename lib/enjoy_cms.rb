@@ -1,5 +1,5 @@
 unless defined?(Enjoy) && Enjoy.respond_to?(:orm) && [:active_record, :mongoid].include?(Enjoy.orm)
-  puts "please use ack_rocket_cms_mongoid or ack_rocket_cms_activerecord and not ack_rocket_cms directly"
+  puts "please use enjoy_cms_mongoid or enjoy_cms_activerecord and not enjoy_cms directly"
   exit 1
 end
 
@@ -29,15 +29,15 @@ require 'turbolinks'
 require 'simple-navigation'
 require 'ack_rails_admin_jcrop'
 
-require 'rocket_cms/seo_helpers'
-require 'rocket_cms/configuration'
-require 'rocket_cms/patch'
-require 'rocket_cms/admin'
-require 'rocket_cms/elastic_search'
-require 'rocket_cms/model'
-require 'rocket_cms/rails_admin_menu'
-require 'rocket_cms/engine'
-require 'rocket_cms/controller'
+require 'enjoy/seo_helpers'
+require 'enjoy/configuration'
+require 'enjoy/patch'
+require 'enjoy/admin'
+require 'enjoy/elastic_search'
+require 'enjoy/model'
+require 'enjoy/rails_admin_menu'
+require 'enjoy/engine'
+require 'enjoy/controller'
 
 module Enjoy
   class << self
@@ -58,7 +58,7 @@ module Enjoy
   autoload :Migration, 'enjoy/migration'
 
   # module Mongoid
-  #   autoload :Paperclip  'rocket_cms/mongoid/paperlcip'
+  #   autoload :Paperclip  'enjoy/mongoid/paperlcip'
   # end
 
   module Models
@@ -93,7 +93,7 @@ module Enjoy
       autoload :Menu, 'enjoy/models/active_record/menu'
       autoload :Page, 'enjoy/models/active_record/page'
       autoload :News, 'enjoy/models/active_record/news'
-      autoload :ContactMessage, 'rocket_cms/models/active_record/contact_message'
+      autoload :ContactMessage, 'enjoy/models/active_record/contact_message'
     end
   end
 
