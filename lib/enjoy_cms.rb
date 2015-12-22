@@ -3,11 +3,11 @@ unless defined?(Enjoy) && Enjoy.respond_to?(:orm) && [:active_record, :mongoid].
   exit 1
 end
 
-require 'enjoy_cms/version'
+require 'enjoy/version'
 require 'devise'
 
 require 'simple_form'
-require 'enjoy_cms/simple_form_patch'
+require 'enjoy/simple_form_patch'
 
 require 'glebtv-simple_captcha'
 require 'validates_email_format_of'
