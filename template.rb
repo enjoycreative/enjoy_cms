@@ -639,24 +639,24 @@ timeout 30
 
 # This is where we specify the socket.
 # We will point the upstream Nginx module to this socket later on
-listen "#{rails_root}/tmp/sockets/unicorn.sock", :backlog => 64
+listen "\#{rails_root}/tmp/sockets/unicorn.sock", :backlog => 64
 
-pid "#{rails_root}/tmp/pids/unicorn.pid"
+pid "\#{rails_root}/tmp/pids/unicorn.pid"
 
 # Set the path of the log files inside the log folder of the testapp
-stderr_path "#{rails_root}/log/unicorn.stderr.log"
-stdout_path "#{rails_root}/log/unicorn.stdout.log"
+stderr_path "\#{rails_root}/log/unicorn.stderr.log"
+stdout_path "\#{rails_root}/log/unicorn.stdout.log"
 
 
 before_fork do |server, worker|
-  server.logger.info("worker=#{worker.nr} spawning in #{Dir.pwd}")
+  server.logger.info("worker=\#{worker.nr} spawning in \#{Dir.pwd}")
 
   # graceful shutdown.
-  old_pid_file = "#{rails_root}/tmp/pids/unicorn.pid.oldbin"
+  old_pid_file = "\#{rails_root}/tmp/pids/unicorn.pid.oldbin"
   if File.exists?(old_pid_file) && server.pid != old_pid_file
     begin
       old_pid = File.read(old_pid_file).to_i
-      server.logger.info("sending QUIT to #{old_pid}")
+      server.logger.info("sending QUIT to \#{old_pid}")
       # we're killing old unicorn master right there
       Process.kill("QUIT", old_pid)
     rescue Errno::ENOENT, Errno::ESRCH
@@ -695,17 +695,17 @@ God.watch do |w|
   w.interval = 30.seconds # default
 
   # unicorn needs to be run from the rails root
-  w.start = "cd #{rails_root} && unicorn -c #{rails_root}/config/unicorn.rb -E #{rails_env} -D"
+  w.start = "cd \#{rails_root} && unicorn -c \#{rails_root}/config/unicorn.rb -E \#{rails_env} -D"
 
   # QUIT gracefully shuts down workers
-  w.stop = "kill -KILL `cat #{rails_root}/tmp/pids/unicorn.pid`"
+  w.stop = "kill -KILL `cat \#{rails_root}/tmp/pids/unicorn.pid`"
 
   # USR2 causes the master to re-create itself and spawn a new worker pool
-  w.restart = "kill -USR2 `cat #{rails_root}/tmp/pids/unicorn.pid`"# && cd #{rails_root} && unicorn -c #{rails_root}/config/unicorn.rb -E #{rails_env} -D"
+  w.restart = "kill -USR2 `cat \#{rails_root}/tmp/pids/unicorn.pid`"# && cd \#{rails_root} && unicorn -c \#{rails_root}/config/unicorn.rb -E \#{rails_env} -D"
 
   w.start_grace = 10.seconds
   w.restart_grace = 10.seconds
-  w.pid_file = "#{rails_root}/tmp/pids/unicorn.pid"
+  w.pid_file = "\#{rails_root}/tmp/pids/unicorn.pid"
 
   w.uid = 'ack'
   w.gid = 'ack'
