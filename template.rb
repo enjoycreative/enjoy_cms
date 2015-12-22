@@ -228,19 +228,19 @@ end
 if mongoid
 create_file 'config/mongoid.yml' do <<-TEXT
 development:
-  sessions:
+  clients:
     default:
       database: #{app_name.downcase}
       hosts:
           - localhost:27017
 production:
-  sessions:
+  clients:
     default:
       database: #{app_name.downcase}
       hosts:
           - localhost:27017
 test:
-  sessions:
+  clients:
     default:
       database: #{app_name.downcase}_test
       hosts:
