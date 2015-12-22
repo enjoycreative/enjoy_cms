@@ -1,0 +1,103 @@
+ru:
+  attributes:
+    user: Пользователь
+    name: Название
+    category: Раздел
+    file: Файл
+    short: Короткое описание
+    text: Текст
+    desc: Описание
+    image: Картинка
+    href: Ссылка
+    enabled: Включено
+    slug: URL код
+    text_slug: URL код
+    created_at: Создано
+    updated_at: Обновлено
+    id: ID
+    content: Содержимое
+    time: Время
+    excerpt: Превью
+    sort: Сортировка
+    link: Ссылка
+    url: URL
+    address: Адрес
+    map_address: Адрес для карты
+    map_hint: Подсказка для карты
+    coordinates: Координаты из геокодирования
+    lat: Широта (вручную)
+    lon: Долгота (вручную)
+    description: SEO Description
+    email: Email
+    keywords: SEO Keywords
+    modifier_id: Кто правил
+    og_title: Og title
+    robots: Robots
+    title: Title
+    version: Version
+    
+  mongoid: &mongoid
+    models:
+      user: Пользователь
+      menu: Меню
+      page: Страница
+      contact_message: Сообщение
+      news: Новость
+
+      gallery: Фотогалерея
+      gallery_image: Фото в фотогалерее
+      embeddede_gallery_image: Фото в фотогалерее
+    attributes:
+      user:
+        email: E-mail
+        name: ФИО
+        login: Логин
+        roles: "Права доступа"
+        old_password: Текущий пароль
+        password: Пароль
+        password_confirmation: Подтвердите пароль
+        remember_me: Запомнить
+        c_at: Создан
+        current_sign_in_ip: Текущий IP
+        last_sign_in_ip: Прошлый IP
+        first_name: Имя
+        last_name: Фамилия
+        phone: Телефон
+      page:
+        fullpath: URL
+        regexp: Подсветка меню
+        redirect: Редирект
+        image: Картинка
+        hidden: Скрытая
+        menus: Меню
+        sitemap_show: Отображать в карте сайта
+      contact_message:
+        name: Ваше имя
+        email: Ваш е-мейл
+        phone: Ваш телефон
+        content: Ваше сообщение
+      gallery:
+      gallery_image:
+       gallery: Фотогалерея
+      embeddede_gallery_image:
+    errors:
+      models:
+        contact_message:
+          attributes:
+            email:
+              invalid_email_address: "^Неверный e-mail"
+  activerecord:
+    <<: *mongoid
+
+  activemodel:
+    errors:
+      messages:
+        invalid_email_address: "^Неверный e-mail"
+
+  admin:
+    scopes:
+      by_date: "По времени"
+      sorted: "Сортированные"
+      enabled: "Доступные"
+      _all: "Все"
+
