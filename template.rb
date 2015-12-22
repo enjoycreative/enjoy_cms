@@ -15,7 +15,7 @@ create_file 'Gemfile' do <<-TEXT
 source 'https://rubygems.org'
 
 gem 'rails', '~> 5.0.0.beta1'
-#{if mongoid then "gem 'mongoid', '~> 4.0.0'" else "gem 'pg'" end}
+#{if mongoid then "gem 'mongoid', '~> 5.0.0'" else "gem 'pg'" end}
 
 # gem 'sass'
 gem 'compass'
