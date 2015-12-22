@@ -16,14 +16,14 @@ module Enjoy
       if kind == 'data'
         "/data/#{app_name.downcase}/app"
       else
-        "/home/#{app_name.downcase}/#{app_name.downcase}"
+        "/home/#{app_name.downcase}/www/#{app_name.downcase}"
       end
     end
     def tmp_path
       if kind == 'data'
         "/data/#{app_name.downcase}/tmp_dump"
       else
-        "/home/#{app_name.downcase}/tmp_dump"
+        "/home/#{app_name.downcase}/www/#{app_name.downcase}/tmp_dump"
       end
     end
 
@@ -37,4 +37,3 @@ module Enjoy
     end
   end
 end
-
