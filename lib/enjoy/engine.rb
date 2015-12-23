@@ -6,7 +6,7 @@ module Enjoy
       require File.expand_path('../tasks', __FILE__)
     end
 
-    initializer "rocket_cms.email_defaults" do
+    initializer "enjoy_cms.email_defaults" do
       # Write default email settings to DB so they can be changed.
 
       #temp
@@ -19,7 +19,7 @@ module Enjoy
       rescue
       end
     end
-    initializer 'rocket_cms.paperclip' do
+    initializer 'enjoy_cms.paperclip' do
       require 'paperclip/style'
       module ::Paperclip
         class Style
