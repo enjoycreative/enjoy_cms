@@ -1,0 +1,8 @@
+.enjoy-news-show
+  h1.enjoy-news-title= @news.name
+  .enjoy-news-date= l(@news.time.to_date)
+  .enjoy-news-text== @news.content
+  - if !enjoy_cmsCms.config.news_image_styles.nil? && @news.image?
+    .enjoy-news-image= image_tag @news.image.url(:main)
+  .enjoy-news-content
+    = render 'shared/obj', obj: @news

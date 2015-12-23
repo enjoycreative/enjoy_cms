@@ -3,10 +3,10 @@ module Enjoy
     module Menu
       extend ActiveSupport::Concern
       include Enjoy::Model
-      include Enableable
       include ManualSlug
+      include Enjoy::Enableable
+      
       include Enjoy.orm_specific('Menu')
-
       included do
 
         field :name, type: String
@@ -18,9 +18,10 @@ module Enjoy
         after_destroy do
           Rails.cache.delete 'menus'
         end
+      end
 
-        has_and_belongs_to_many :pages, inverse_of: :menus, class_name: "Enjoy::Page"
-        alias_method :items, :pages
+      def page_class_name
+        "Enjoy::Page"
       end
     end
   end

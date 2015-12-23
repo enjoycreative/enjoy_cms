@@ -15,7 +15,12 @@ module Enjoy
           field :robots, type: String, localize: Enjoy.config.localize
 
           field :og_title, type: String, localize: Enjoy.config.localize
-          has_mongoid_attached_file :og_image, styles: {thumb: "800x600>"}
+          unless Enjoy.config.news_image_styles.nil?
+            enjoy_mongoid_attached_file(:image,
+                      styles: og_image_styles,
+                      content_type: { content_type: ["image/jpg", "image/jpeg", "image/png"] }
+            )
+          end
         end
       end
     end

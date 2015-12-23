@@ -3,6 +3,7 @@ module Enjoy
     module ContactMessage
       extend ActiveSupport::Concern
       include Enjoy::Model
+      
       include Enjoy.orm_specific('ContactMessage')
 
       included do

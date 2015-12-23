@@ -3,8 +3,9 @@ module Enjoy
     module EmbeddedGalleryImage
       extend ActiveSupport::Concern
       include Enjoy::Model
-      include Enableable
-      include Sortable
+      include Enjoy::Enableable
+      include Enjoy::Sortable
+      
       include Enjoy.orm_specific('EmbeddedGalleryImage')
 
       included do

@@ -1,0 +1,9 @@
+.enjoy-news-index
+  h1= t('enjoy.news')
+  - @news.each do |news|
+    .enjoy-news-date= l(news.time.to_date)
+    = link_to news.name, news, class: "enjoy-news-title", title: news.name
+    - if !Enjoy.configuration.news_image_styles.nil? && news.image?
+      .enjoy-news-image= image_tag news.image.url(:thumb)
+    .enjoy-news-excerpt== news.excerpt
+  = paginate @news

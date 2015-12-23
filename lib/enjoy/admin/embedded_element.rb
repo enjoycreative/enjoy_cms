@@ -3,8 +3,8 @@ module Enjoy
     module EmbeddedElement
       extend ActiveSupport::Concern
       include Enjoy::Model
-      include Enableable
-      include Sortable
+      include Enjoy::Enableable
+      include Enjoy::Sortable
       include Enjoy.orm_specific('EmbeddedElement')
     end
   end

@@ -101,15 +101,11 @@ module Enjoy
               end
             end
           end
-          if Seo.separate_table?
-            group :seo do
+          group :seo do
+            active true
+            field :seo do
               active true
-              field :seo do
-                active true
-              end
             end
-          else
-            group :seo, &Enjoy.seo_config(true)
           end
           group :sitemap_data, &Enjoy.sitemap_data_config
         end

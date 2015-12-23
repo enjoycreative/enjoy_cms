@@ -3,13 +3,13 @@ $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
 require 'enjoy/version'
 
 Gem::Specification.new do |spec|
-  spec.name          = 'enjoy_cms'
+  spec.name          = 'Enjoy'
   spec.version       = Enjoy::VERSION
   spec.authors       = ['Alexander Kiseliev']
-  spec.email         = ["i43ack@gmail.com"]
-  spec.description   = %q{EnjoyCMS fork}
-  spec.summary       = %q{Please DO NOT use this gem directly, use enjoy_cms_mongoid or enjoy_cms_activerecord instead!}
-  spec.homepage      = 'https://github.com/enjoycreative/enjoy_cms'
+  spec.email         = ["dev@enjoycreate.ru"]
+  spec.description   = %q{Enjoy fork}
+  spec.summary       = %q{Please DO NOT use this gem directly, use Enjoy_mongoid or Enjoy_activerecord instead!}
+  spec.homepage      = 'https://github.com/enjoycreative/Enjoy'
   spec.license       = 'MIT'
 
   spec.files         = `git ls-files`.split($/).reject {|f| f.start_with?('mongoid') || f.start_with?('activerecord') }

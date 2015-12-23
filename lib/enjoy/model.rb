@@ -6,13 +6,10 @@ module Enjoy
         include Mongoid::Document
         include Mongoid::Timestamps::Short
       end
+      
       include ActiveModel::ForbiddenAttributesProtection
-      include BooleanField
-      include SortField
-
-      if Enjoy.mongoid?
-        include Mongoid::Paperclip
-      end
+      include Enjoy::BooleanField
+      include Enjoy::SortField
 
       include SmartExcerpt
       include SimpleCaptcha::ModelHelpers

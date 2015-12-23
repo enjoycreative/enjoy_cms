@@ -24,7 +24,7 @@ module Enjoy
         end
 
         def mailer_class
-          ContactMailer
+          Enjoy::ContactMailer
         end
 
         def mailer_method

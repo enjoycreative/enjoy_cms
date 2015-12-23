@@ -24,6 +24,10 @@ module Enjoy::Localizeable
     (params[:locale].blank? ? "" : "/#{params[:locale]}") + (item.redirect.blank? ? item.fullpath : item.redirect)
   end
   def find_seo_extra(path)
-    Enjoy::Page.enabled.where(fullpath: path.gsub(/(\/ru|\/en)/, "")).first
+    page_class.enabled.where(fullpath: path.gsub(/(\/ru|\/en)/, "")).first
+  end
+
+  def page_class
+    Enjoy::Page
   end
 end

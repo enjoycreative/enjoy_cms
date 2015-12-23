@@ -1,5 +1,5 @@
 unless defined?(Enjoy) && Enjoy.respond_to?(:orm) && [:active_record, :mongoid].include?(Enjoy.orm)
-  puts "please use enjoy_cms_mongoid or enjoy_cms_activerecord and not enjoy_cms directly"
+  puts "please use Enjoy_mongoid or Enjoy_activerecord and not enjoy directly"
   exit 1
 end
 
@@ -29,7 +29,7 @@ require 'turbolinks'
 require 'simple-navigation'
 require 'ack_rails_admin_jcrop'
 
-require 'enjoy/seo_helpers'
+# require 'enjoy/seo_helpers'
 require 'enjoy/configuration'
 require 'enjoy/patch'
 require 'enjoy/admin'
@@ -38,6 +38,9 @@ require 'enjoy/model'
 require 'enjoy/rails_admin_menu'
 require 'enjoy/engine'
 require 'enjoy/controller'
+
+require 'manual_slug'
+
 
 module Enjoy
   class << self
@@ -68,7 +71,7 @@ module Enjoy
     autoload :News, 'enjoy/models/news'
     autoload :ContactMessage, 'enjoy/models/contact_message'
 
-    autoload :EmbeddedElement,      'enjoy/models/embedded_element'
+    autoload :Enjoy,      'enjoy/models/embedded_element'
 
     autoload :EmbeddedGalleryImage, 'enjoy/models/embedded_gallery_image'
     autoload :GalleryImage,         'enjoy/models/gallery_image'
@@ -81,7 +84,7 @@ module Enjoy
       autoload :News, 'enjoy/models/mongoid/news'
       autoload :ContactMessage, 'enjoy/models/mongoid/contact_message'
 
-      autoload :EmbeddedElement,      'enjoy/models/mongoid/embedded_element'
+      autoload :Enjoy,      'enjoy/models/mongoid/embedded_element'
 
       autoload :EmbeddedGalleryImage, 'enjoy/models/mongoid/embedded_gallery_image'
       autoload :GalleryImage,         'enjoy/models/mongoid/gallery_image'
@@ -104,5 +107,3 @@ module Enjoy
     autoload :Search, 'enjoy/controllers/search'
   end
 end
-
-require 'manual_slug'

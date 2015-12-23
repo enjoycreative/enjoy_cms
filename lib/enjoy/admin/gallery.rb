@@ -3,9 +3,9 @@ module Enjoy
     module Gallery
       extend ActiveSupport::Concern
       include Enjoy::Model
-      include Enableable
       include ManualSlug
-      include SitemapData
+      include Enjoy::Enableable
+      include Enjoy::SitemapData
       include Enjoy.orm_specific('Gallery')
 
       included do

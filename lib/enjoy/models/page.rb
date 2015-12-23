@@ -3,26 +3,35 @@ module Enjoy
     module Page
       extend ActiveSupport::Concern
       include Enjoy::Model
-      include Enableable
-      include Seoable
       include ManualSlug
-      include SitemapData
+      include Enjoy::Enableable
+      include Enjoy::Seoable
+      include Enjoy::SitemapData
 
       include Enjoy.orm_specific('Page')
 
-      if Enjoy.config.search_enabled
-        include Enjoy::ElasticSearch
-      end
+      # if Enjoy.config.search_enabled
+      #   include Enjoy::ElasticSearch
+      # end
 
       included do
-
-        has_and_belongs_to_many :menus, inverse_of: :pages, class_name: "Enjoy::Menu"
         validates_uniqueness_of :fullpath
         validates_presence_of :name
         manual_slug :name
         before_validation do
           self.fullpath = "/pages/#{slug}" if self.fullpath.blank?
         end
+      end
+
+      def page_h1
+        _ret = h1
+        _ret = name   if _ret.blank?
+        _ret = title  if _ret.blank?
+        _ret
+      end
+
+      def menu_class_name
+        "Enjoy::Menu"
       end
 
       def get_fullpath

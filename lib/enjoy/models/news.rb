@@ -3,15 +3,16 @@ module Enjoy
     module News
       extend ActiveSupport::Concern
       include Enjoy::Model
-      include Seoable
-      include Enableable
       include ManualSlug
-      include SitemapData
+      include Enjoy::Seoable
+      include Enjoy::Enableable
+      include Enjoy::SitemapData
+      
       include Enjoy.orm_specific('News')
 
-      if Enjoy.config.search_enabled
-        include Enjoy::ElasticSearch
-      end
+      # if Enjoy.config.search_enabled
+      #   include Enjoy::ElasticSearch
+      # end
 
       included do
 
@@ -50,7 +51,7 @@ module Enjoy
         time.strftime('%Y-%m-%d')
       end
       def format_date
-        time.strftime(I18n.t('rs.format_time'))
+        time.strftime(I18n.t('Enjoy.format_time'))
       end
     end
   end
