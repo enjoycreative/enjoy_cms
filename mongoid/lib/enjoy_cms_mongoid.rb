@@ -6,7 +6,7 @@ require 'mongoid_slug'
 require 'mongo_session_store-rails4'
 require 'rails_admin_settings'
 
-module EnjoyCMS
+module Enjoy
   def self.orm
     :mongoid
   end
