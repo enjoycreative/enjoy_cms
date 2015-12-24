@@ -55,7 +55,7 @@ module Enjoy
     def page_config(fields = {})
       Proc.new {
         Enjoy.apply_patches self
-        # navigation_label I18n.t('rs.cms')
+        # navigation_label I18n.t('enjoy.cms')
         list do
           scopes [:sorted, :enabled, nil]
 
@@ -168,7 +168,7 @@ module Enjoy
 
     def news_config(fields = {})
       Proc.new {
-        # navigation_label I18n.t('rs.cms')
+        # navigation_label I18n.t('enjoy.cms')
         list do
           scopes [:by_date, :enabled, nil]
         end
@@ -251,7 +251,7 @@ module Enjoy
 
 
 
-    def embedded_element_config(_navigation_label = I18n.t('rs.cms'), fields = {})
+    def embedded_element_config(_navigation_label = I18n.t('enjoy.cms'), fields = {})
       Proc.new {
         # navigation_label(_navigation_label) unless _navigation_label.nil?
         field :enabled, :toggle
