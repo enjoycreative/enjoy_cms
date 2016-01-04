@@ -22,4 +22,10 @@ module Enjoy::Controller
   def ckeditor_authenticate
     redirect_to '/' unless user_signed_in? && current_user.has_role?('admin')
   end
+
+  
+  def hide_ym_ga
+    false
+  end
+  helper_method :hide_ym_ga
 end

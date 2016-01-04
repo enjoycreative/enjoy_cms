@@ -7,10 +7,12 @@ html lang="ru"
     = yield :meta
     = csrf_meta_tags
     = render partial: "blocks/favicon"
-    = stylesheet_link_tag "application", media: "all"
-    = javascript_include_tag "application"
+    
+    = stylesheet_link_tag "application", media: "all", async: true
+    = javascript_include_tag "application", async: true
     /[if lt IE 9]
-      = javascript_include_tag "//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.2/html5shiv.min.js"
+      = javascript_include_tag "//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.2/html5shiv.min.js", async: true
+      
   body
     #root
       = render 'shared/messages'
