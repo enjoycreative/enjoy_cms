@@ -35,18 +35,26 @@ ru:
     robots: Robots
     title: Title
     version: Version
-    
+    sitemap_data_field: Родительский элемент/страница
+    seoable: Родительский элемент/страница
+    sitemap_show: Отображать в карте сайта
+    sitemap_lastmod: lastmod
+    sitemap_changefreq: changefreq
+    sitemap_priority: priority
+
   mongoid: &mongoid
     models:
       user: Пользователь
-      menu: Меню
-      page: Страница
-      contact_message: Сообщение
-      news: Новость
+      enjoy/menu: Меню
+      enjoy/page: Страница
+      enjoy/contact_message: Сообщение
+      enjoy/news: Новость
 
-      gallery: Фотогалерея
-      gallery_image: Фото в фотогалерее
-      embeddede_gallery_image: Фото в фотогалерее
+      enjoy/gallery: Фотогалерея
+      enjoy/gallery_image: Фото в фотогалерее
+      enjoy/embeddede_gallery_image: Фото в фотогалерее
+      enjoy/seo: SEO
+      enjoy/sitemap_data: Карта сайта
     attributes:
       user:
         email: E-mail
@@ -63,23 +71,22 @@ ru:
         first_name: Имя
         last_name: Фамилия
         phone: Телефон
-      page:
+      enjoy/page:
         fullpath: URL
         regexp: Подсветка меню
         redirect: Редирект
         image: Картинка
         hidden: Скрытая
         menus: Меню
-        sitemap_show: Отображать в карте сайта
-      contact_message:
+      enjoy/contact_message:
         name: Ваше имя
         email: Ваш е-мейл
         phone: Ваш телефон
         content: Ваше сообщение
-      gallery:
-      gallery_image:
+      enjoy/gallery:
+      enjoy/gallery_image:
        gallery: Фотогалерея
-      embeddede_gallery_image:
+      enjoy/embeddede_gallery_image:
     errors:
       models:
         contact_message:
@@ -100,4 +107,3 @@ ru:
       sorted: "Сортированные"
       enabled: "Доступные"
       _all: "Все"
-
