@@ -1,4 +1,4 @@
-# EnjoyCms
+# EnjoyCMS
 
 # DEVELOPMENT VERSION. DO NOT USE IT
 

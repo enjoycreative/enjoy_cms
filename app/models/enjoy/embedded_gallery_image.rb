@@ -1,6 +1,6 @@
 module Enjoy
   if Enjoy.mongoid?
-    class EmbeddedGalleryImage < Enjoy
+    class EmbeddedGalleryImage < Enjoy::EmbeddedElement
       include Enjoy::Models::EmbeddedGalleryImage
       Enjoy.apply_patches self
 

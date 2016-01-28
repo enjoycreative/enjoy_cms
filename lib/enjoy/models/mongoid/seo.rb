@@ -3,7 +3,7 @@ module Enjoy
     module Mongoid
       module Seo
         extend ActiveSupport::Concern
-        include ::Mongoid::Paperclip
+        include Enjoy::MongoidPaperclip
         included do
 
           field :name, type: String, localize: Enjoy.config.localize
@@ -15,11 +15,15 @@ module Enjoy
           field :robots, type: String, localize: Enjoy.config.localize
 
           field :og_title, type: String, localize: Enjoy.config.localize
-          unless Enjoy.config.news_image_styles.nil?
-            enjoy_mongoid_attached_file(:image,
-                      styles: og_image_styles,
-                      content_type: { content_type: ["image/jpg", "image/jpeg", "image/png"] }
-            )
+          enjoy_cms_mongoid_attached_file(:og_image,
+                    styles: og_image_styles,
+                    content_type: { content_type: ["image/jpg", "image/jpeg", "image/png"] }
+          )
+        end
+
+        module ClassMethods
+          def og_image_styles
+            {thumb: "800x600>"}
           end
         end
       end

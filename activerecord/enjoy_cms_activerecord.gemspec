@@ -9,7 +9,7 @@ Gem::Specification.new do |spec|
   spec.name          = 'enjoy_cms_activerecord'
   spec.version       = Enjoy::VERSION
   spec.authors       = ['Alexander Kiseliev']
-  spec.email         = "admin@enjoycreate.ru"
+  spec.email         = "dev@enjoycreate.ru"
   spec.description   = %q{EnjoyCMS - ActiveRecord metapackage}
   spec.summary       = %q{}
   spec.homepage      = 'https://github.com/enjoycreative/enjoy_cms'

@@ -3,7 +3,7 @@ module Enjoy
     module ContactMessage
       extend ActiveSupport::Concern
       include Enjoy::Model
-      
+
       include Enjoy.orm_specific('ContactMessage')
 
       included do
@@ -16,7 +16,7 @@ module Enjoy
         end
         validate do
           if email.blank? && phone.blank?
-            errors.add(:email, I18n.t('rs.no_contact_info'))
+            errors.add(:email, I18n.t('enjoy.no_contact_info'))
           end
         end
 

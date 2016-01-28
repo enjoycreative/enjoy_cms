@@ -3,13 +3,14 @@ $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
 
 lib = File.expand_path('../../lib', __FILE__)
 $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
+
 require 'enjoy/version'
 
 Gem::Specification.new do |spec|
   spec.name          = 'enjoy_cms_mongoid'
   spec.version       = Enjoy::VERSION
   spec.authors       = ['Alexander Kiseliev']
-  spec.email         = "admin@enjoycreate.ru"
+  spec.email         = "dev@enjoycreate.ru"
   spec.description   = %q{EnjoyCMS - Mongoid metapackage}
   spec.summary       = %q{}
   spec.homepage      = 'https://github.com/enjoycreative/enjoy_cms'

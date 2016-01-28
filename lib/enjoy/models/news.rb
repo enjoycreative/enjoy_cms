@@ -6,8 +6,8 @@ module Enjoy
       include ManualSlug
       include Enjoy::Seoable
       include Enjoy::Enableable
-      include Enjoy::SitemapData
-      
+      include Enjoy::SitemapDataField
+
       include Enjoy.orm_specific('News')
 
       # if Enjoy.config.search_enabled

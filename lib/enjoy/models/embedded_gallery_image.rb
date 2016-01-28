@@ -5,7 +5,7 @@ module Enjoy
       include Enjoy::Model
       include Enjoy::Enableable
       include Enjoy::Sortable
-      
+
       include Enjoy.orm_specific('EmbeddedGalleryImage')
 
       included do

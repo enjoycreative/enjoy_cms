@@ -1,7 +1,7 @@
 module Enjoy
   if Enjoy.mongoid?
-    class Enjoy
-      include Enjoy::Models::Enjoy
+    class EmbeddedElement
+      include Enjoy::Models::EmbeddedElement
       Enjoy.apply_patches self
 
       # use it in inherited model

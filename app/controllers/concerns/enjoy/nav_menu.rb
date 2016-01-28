@@ -11,7 +11,9 @@ module Enjoy::NavMenu
       block = nil
     else
       block = Proc.new do |sub_nav|
-        subs.each { |sub| render_with_subs(items, sub_nav, sub) }
+        subs.each { |sub|
+          render_with_subs(items, sub_nav, sub)
+        }
       end
     end
     cr = item.clean_regexp
@@ -53,12 +55,20 @@ module Enjoy::NavMenu
     item.redirect.blank? ? item.fullpath : item.redirect
   end
   def nav_get_menu_items(type)
-    Enjoy::Menu.find(type.to_s).pages.enabled.sorted.to_a
+    menu = menu_class.find(type.to_s)
+    menu.pages.enabled.sorted.to_a if menu
   end
   def nav_extra_data_before(type, primary)
     # override for additional config or items
   end
   def nav_extra_data_after(type, primary)
     # override for additional config or items
+  end
+
+  def menu_class_name
+    "Enjoy::Menu"
+  end
+  def menu_class
+    menu_class_name.constantize
   end
 end

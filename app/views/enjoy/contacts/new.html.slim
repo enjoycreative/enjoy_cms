@@ -1,10 +1,10 @@
 = render 'shared/obj', obj: @seo_page
 
 #enjoy_cms_contact_form
-  = simple_form_for @contact_message, url: enjoy.contacts_path do |f|
+  = simple_form_for @contact_message, url: enjoy_cms.contacts_path do |f|
     = f.input :name
     = f.input :email
     = f.input :phone
     = f.input :content
-    = f.input :captcha
+    = f.input :captcha, as: :simple_captcha
     = f.submit t('enjoy.send')

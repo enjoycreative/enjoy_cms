@@ -5,7 +5,7 @@ module Enjoy
       include Enjoy::Model
       include ManualSlug
       include Enjoy::Enableable
-      
+
       include Enjoy.orm_specific('Menu')
       included do
 
@@ -18,10 +18,6 @@ module Enjoy
         after_destroy do
           Rails.cache.delete 'menus'
         end
-      end
-
-      def page_class_name
-        "Enjoy::Page"
       end
     end
   end

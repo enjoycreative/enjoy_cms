@@ -7,6 +7,7 @@ module Enjoy::Controller
     include Enjoy::Fancybox
     protect_from_forgery with: :exception
     helper_method :page_title
+    helper_method :hide_ym_ga
   end
 
   protected
@@ -23,9 +24,8 @@ module Enjoy::Controller
     redirect_to '/' unless user_signed_in? && current_user.has_role?('admin')
   end
 
-  
+
   def hide_ym_ga
     false
   end
-  helper_method :hide_ym_ga
 end

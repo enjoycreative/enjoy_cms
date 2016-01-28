@@ -3,7 +3,7 @@ module Enjoy
     def map_config(is_active = true)
       Proc.new {
         active is_active
-        label I18n.t('rs.map')
+        label I18n.t('enjoy.map')
         field :address, :string
         field :map_address, :string
         field :map_hint, :string
@@ -22,18 +22,10 @@ module Enjoy
 
     def seo_config(is_active = true)
       Proc.new {
-        if respond_to?(:active)
-          active is_active
-          label "SEO"
-        else
-          visible false
+        navigation_label 'SEO'
+        field :seoable do
+          read_only true
         end
-        Enjoy.seo_fields(self)
-      }
-    end
-
-    def seo_fields(s)
-      s.instance_eval do
         field :h1, :string
         field :title, :string
         field :keywords, :text
@@ -49,7 +41,7 @@ module Enjoy
         if block_given?
           yield
         end
-      end
+      }
     end
 
     def page_config(fields = {})
@@ -77,16 +69,16 @@ module Enjoy
           field :content, :ck_editor
           Enjoy.apply_patches self
           group :menu do
-            label I18n.t('rs.menu')
+            label I18n.t('enjoy.menu')
             field :menus
             field :fullpath, :string do
-              help I18n.t('rs.with_final_slash')
+              help I18n.t('enjoy.with_final_slash')
             end
             field :regexp, :string do
-              help I18n.t('rs.page_url_regex')
+              help I18n.t('enjoy.page_url_regex')
             end
             field :redirect, :string do
-              help I18n.t('rs.final_in_menu')
+              help I18n.t('enjoy.final_in_menu')
             end
             field :text_slug
           end
@@ -102,12 +94,17 @@ module Enjoy
             end
           end
           group :seo do
-            active true
+            active false
             field :seo do
               active true
             end
           end
-          group :sitemap_data, &Enjoy.sitemap_data_config
+          group :sitemap_data do
+            active false
+            field :sitemap_data do
+              active true
+            end
+          end
         end
         Enjoy.only_patches self, [:show, :export]
         nested_set({
@@ -139,7 +136,7 @@ module Enjoy
 
     def contact_message_config
       Proc.new {
-        # navigation_label I18n.t('rs.settings')
+        # navigation_label I18n.t('enjoy.settings')
         field :c_at do
           read_only true
         end
@@ -218,8 +215,18 @@ module Enjoy
             end
           end
           Enjoy.apply_patches self
-          group :seo, &Enjoy.seo_config
-          group :sitemap_data, &Enjoy.sitemap_data_config
+          group :seo do
+            active false
+            field :seo do
+              active true
+            end
+          end
+          group :sitemap_data do
+            active false
+            field :sitemap_data do
+              active true
+            end
+          end
         end
 
         Enjoy.only_patches self, [:show, :list, :export]
@@ -232,13 +239,16 @@ module Enjoy
 
     def sitemap_data_config(is_active = false)
       Proc.new {
-        active is_active
-        label I18n.t('rs.sitemap_data')
-        field :sitemap_show
+        navigation_label 'SEO'
+        label I18n.t('enjoy.sitemap_data')
+        field :sitemap_data_field do
+          read_only true
+        end
+        field :sitemap_show, :toggle
         field :sitemap_lastmod
         field :sitemap_changefreq, :enum do
           enum do
-            SitemapData::SITEMAP_CHANGEFREQ_ARRAY
+            Enjoy::SitemapData::SITEMAP_CHANGEFREQ_ARRAY
           end
         end
         field :sitemap_priority
@@ -295,7 +305,7 @@ module Enjoy
 
     def gallery_config
       Proc.new {
-        # navigation_label I18n.t('rs.gallery')
+        # navigation_label I18n.t('enjoy.gallery')
         field :enabled, :toggle
 
         field :name, :string
@@ -324,7 +334,7 @@ module Enjoy
 
     def image_config(without_gallery = false, fields = {})
       Proc.new {
-        # navigation_label I18n.t('rs.gallery')
+        # navigation_label I18n.t('enjoy.gallery')
         field :enabled, :toggle
         unless without_gallery
           field :gallery

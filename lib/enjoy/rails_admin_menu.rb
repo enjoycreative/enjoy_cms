@@ -12,9 +12,9 @@ module RailsAdmin
             ret = []
             menus = Rails.cache.fetch 'menus', expires_in: 10.minutes do
               if Enjoy.mongoid?
-                ::Menu.all.map { |m| {id: m.id.to_s, name: m.name } }
+                Enjoy::Menu.all.map { |m| {id: m.id.to_s, name: m.name } }
               else
-                ::Menu.all.map { |m| {id: m.id, name: m.name } }
+                Enjoy::Menu.all.map { |m| {id: m.id, name: m.name } }
               end
             end
             menus.each do |m|
@@ -125,9 +125,9 @@ module RailsAdmin
               else
                 flash[:error] = I18n.t('rs.m.no_id')
               end
-              
+
             end
-            
+
             redirect_to :back unless params['ajax'].present?
           end
         end

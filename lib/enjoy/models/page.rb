@@ -6,7 +6,7 @@ module Enjoy
       include ManualSlug
       include Enjoy::Enableable
       include Enjoy::Seoable
-      include Enjoy::SitemapData
+      include Enjoy::SitemapDataField
 
       include Enjoy.orm_specific('Page')
 
@@ -24,14 +24,10 @@ module Enjoy
       end
 
       def page_h1
-        _ret = h1
+        _ret = seo ? seo.h1 : nil
         _ret = name   if _ret.blank?
         _ret = title  if _ret.blank?
         _ret
-      end
-
-      def menu_class_name
-        "Enjoy::Menu"
       end
 
       def get_fullpath
