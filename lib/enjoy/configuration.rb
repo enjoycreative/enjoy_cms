@@ -39,7 +39,7 @@ module Enjoy
     def initialize
       @news_image_styles = {
           main:  '400x200>',
-          thumb: '200x100>',
+          thumb: '200x100>'
       }
       @news_per_page = 10
       @news_excerpt = 12
@@ -64,7 +64,12 @@ module Enjoy
       @separate_seo_table = false
 
       @routes_config = {
-        root_path: "home#index"
+        use_contacts_path: true,
+        use_search_path: true,
+        use_news_path: true,
+        root_path: "home#index",
+        use_slug_path: true,
+        use_pages_path: true
       }
     end
 
