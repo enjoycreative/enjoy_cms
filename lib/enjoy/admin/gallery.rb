@@ -1,7 +1,7 @@
 module Enjoy
   module Admin
     module Gallery
-      def self.self.config
+      def self.config
         Proc.new {
           # navigation_label I18n.t('enjoy.gallery')
           field :enabled, :toggle
