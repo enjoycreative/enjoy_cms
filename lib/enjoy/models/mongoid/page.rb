@@ -4,16 +4,6 @@ module Enjoy
       module Page
         extend ActiveSupport::Concern
 
-        module ClassMethods
-          def menu_class_name
-            "Enjoy::Menu"
-          end
-
-          def menu_class
-            menu_class_name.constantize
-          end
-        end
-
         included do
           field :name, type: String, localize: Enjoy.config.localize, default: ""
 
@@ -23,7 +13,7 @@ module Enjoy
           field :content, type: String, localize: Enjoy.config.localize, default: ""
           field :fullpath, type: String, default: ""
 
-          has_and_belongs_to_many :menus, inverse_of: :pages, class_name: menu_class_name
+          has_and_belongs_to_many :menus, inverse_of: :pages, class_name: "Enjoy::Menu"
           acts_as_nested_set
 
           scope :sorted, -> { order_by([:lft, :asc]) }

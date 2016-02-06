@@ -12,7 +12,7 @@ module Enjoy::Localizeable
     {locale: params[:locale]}
   end
   def nav_get_menu_items(type)
-    pages = Enjoy::Menu.find(type.to_s).pages.enabled
+    pages = menu_class.find(type.to_s).pages.enabled
     if Enjoy.mongoid?
       pages = pages.where(:"name.#{I18n.locale}".exists => true)
     elsif Enjoy.active_record?
@@ -27,7 +27,17 @@ module Enjoy::Localizeable
     page_class.enabled.where(fullpath: path.gsub(/(\/ru|\/en)/, "")).first
   end
 
+  def page_class_name
+    "Enjoy::Page"
+  end
   def page_class
-    Enjoy::Page
+    page_class_name.constantize
+  end
+
+  def menu_class_name
+    "Enjoy::Menu"
+  end
+  def menu_class
+    menu_class_name.constantize
   end
 end

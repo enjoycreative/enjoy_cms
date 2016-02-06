@@ -29,10 +29,7 @@ require 'turbolinks'
 require 'simple-navigation'
 require 'ack_rails_admin_jcrop'
 
-# require 'enjoy/seo_helpers'
 require 'enjoy/configuration'
-require 'enjoy/patch'
-require 'enjoy/admin'
 require 'enjoy/elastic_search'
 require 'enjoy/model'
 require 'enjoy/rails_admin_menu'
@@ -61,6 +58,22 @@ module Enjoy
   # module Mongoid
   #   autoload :Paperclip  'enjoy/mongoid/paperlcip'
   # end
+
+  autoload :Admin,  'enjoy/admin'
+  module Admin
+    autoload :SitemapData,  'enjoy/admin/sitemap_data'
+    autoload :Seo,  'enjoy/admin/seo'
+    autoload :Menu, 'enjoy/admin/menu'
+    autoload :Page, 'enjoy/admin/page'
+    autoload :News, 'enjoy/admin/news'
+    autoload :ContactMessage, 'enjoy/admin/contact_message'
+
+    autoload :EmbeddedElement,      'enjoy/admin/embedded_element'
+
+    autoload :EmbeddedGalleryImage, 'enjoy/admin/embedded_gallery_image'
+    autoload :GalleryImage,         'enjoy/admin/gallery_image'
+    autoload :Gallery,              'enjoy/admin/gallery'
+  end
 
   module Models
     autoload :SitemapData,  'enjoy/models/sitemap_data'

@@ -22,10 +22,10 @@ module Enjoy::SeoPages
       path = path[0..-2]
       do_redirect = true
     end
-    page = Enjoy::Page.enabled.where(fullpath: path).first
+    page = page_class.enabled.where(fullpath: path).first
 
     if page.nil? && !params[:slug].blank?
-      page = Enjoy::Page.enabled.where(fullpath: "/" + params[:slug]).first
+      page = page_class.enabled.where(fullpath: "/" + params[:slug]).first
     end
 
     if page.nil?
@@ -57,12 +57,12 @@ module Enjoy::SeoPages
       do_redirect = true
     end
 
-    page = Page.enabled.any_of({fullpath: path}, {redirect: path}).first
+    page = page_class.enabled.any_of({fullpath: path}, {redirect: path}).first
     if page.nil?
       do_redirect = true
       spath = path.chomp(File.extname(path))
       if spath != path
-        page = Enjoy::Page.enabled.any_of({fullpath: spath}, {redirect: spath}).first
+        page = page_class.enabled.any_of({fullpath: spath}, {redirect: spath}).first
       end
     end
     if !page.nil? && do_redirect
@@ -75,6 +75,13 @@ module Enjoy::SeoPages
 
   def find_seo_extra(path)
     nil
+  end
+
+  def page_class_name
+    "Enjoy::Page"
+  end
+  def page_class
+    page_class_name.constantize
   end
 
   def rails_admin?

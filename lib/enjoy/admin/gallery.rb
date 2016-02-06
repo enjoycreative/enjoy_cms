@@ -1,19 +1,33 @@
 module Enjoy
   module Admin
     module Gallery
-      extend ActiveSupport::Concern
-      include Enjoy::Model
-      include ManualSlug
-      include Enjoy::Enableable
-      include Enjoy::SitemapData
-      include Enjoy.orm_specific('Gallery')
+      def self.self.config
+        Proc.new {
+          # navigation_label I18n.t('enjoy.gallery')
+          field :enabled, :toggle
 
-      included do
+          field :name, :string
+          field :slugs, :enum do
+            enum_method do
+              :slugs
+            end
+            visible do
+              bindings[:view].current_user.admin?
+            end
+            multiple do
+              true
+            end
+          end
+          field :text_slug
 
-        has_many :gallery_images, class_name: "Enjoy::GalleryImage"
-        field :name, type: String, localize: Enjoy.configuration.localize
+          field :image, :jcrop do
+            jcrop_options :image_jcrop_options
+          end
 
-        validates_attachment_content_type :image, content_type: /\Aimage\/.*\Z/, if: :image?
+          if block_given?
+            yield self
+          end
+        }
       end
     end
   end

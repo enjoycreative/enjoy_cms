@@ -88,8 +88,4 @@ module Enjoy::Mappable
       map_address
     end
   end
-
-  def self.admin
-    Enjoy.map_config
-  end
 end

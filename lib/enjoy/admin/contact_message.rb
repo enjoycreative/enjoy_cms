@@ -1,35 +1,31 @@
 module Enjoy
   module Admin
     module ContactMessage
-      extend ActiveSupport::Concern
-      include Enjoy::Model
-      include Enjoy.orm_specific('ContactMessage')
-
-      included do
-
-        apply_simple_captcha message: Enjoy.configuration.contacts_captcha_error_message
-
-        validates_email_format_of :email, unless: 'email.blank?'
-        if Enjoy.config.contacts_message_required
-          validates_presence_of :content
-        end
-        validate do
-          if email.blank? && phone.blank?
-            errors.add(:email, I18n.t('rs.no_contact_info'))
+      def self.config
+        Proc.new {
+          # navigation_label I18n.t('enjoy.contact_message')
+          field :c_at do
+            read_only true
           end
-        end
+          field :name
+          field :content, :text
+          field :email
+          field :phone
 
-        after_create do
-          mailer_class.send(mailer_method, self).deliver
-        end
+          Enjoy.config.contacts_fields.each_pair do |fn, ft|
+            next if ft.nil?
+            if ft.is_a?(Array)
+              field fn, ft[1].to_sym
+            else
+              field fn
+            end
+          end
 
-        def mailer_class
-          Enjoy::ContactMailer
-        end
+          if block_given?
+            yield self
+          end
 
-        def mailer_method
-          :new_message_email
-        end
+        }
       end
     end
   end

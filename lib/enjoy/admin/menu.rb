@@ -1,26 +1,18 @@
 module Enjoy
   module Admin
     module Menu
-      extend ActiveSupport::Concern
-      include Enjoy::Model
-      include Enableable
-      include ManualSlug
-      include Enjoy.orm_specific('Menu')
+      def self.config
+        Proc.new {
+          # navigation_label 'CMS'
 
-      included do
+          field :enabled, :toggle
+          field :text_slug
+          field :name
 
-        field :name, type: String
-        manual_slug :name
-
-        after_save do
-          Rails.cache.delete 'menus'
-        end
-        after_destroy do
-          Rails.cache.delete 'menus'
-        end
-
-        has_and_belongs_to_many :pages, inverse_of: :menus, class_name: "Enjoy::Page"
-        alias_method :items, :pages
+          if block_given?
+            yield self
+          end
+        }
       end
     end
   end

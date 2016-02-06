@@ -6,7 +6,7 @@ module Enjoy
 
   class Menu
     include Enjoy::Models::Menu
-    Enjoy.apply_patches self
-    rails_admin &Enjoy.menu_config
+
+    rails_admin &Enjoy::Admin::Menu.config
   end
 end

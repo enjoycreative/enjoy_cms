@@ -5,8 +5,12 @@ module Enjoy
       if Enjoy.mongoid?
         include Mongoid::Document
         include Mongoid::Timestamps::Short
+
+        if Enjoy.config.localize
+          include Enjoy::ModelLocalizeable
+        end
       end
-      
+
       include ActiveModel::ForbiddenAttributesProtection
       include Enjoy::BooleanField
       include Enjoy::SortField
@@ -18,5 +22,6 @@ module Enjoy
         include Trackable
       end
     end
+
   end
 end

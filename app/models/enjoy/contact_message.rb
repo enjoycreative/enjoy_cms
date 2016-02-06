@@ -6,7 +6,7 @@ module Enjoy
 
   class ContactMessage
     include Enjoy::Models::ContactMessage
-    Enjoy.apply_patches self
-    rails_admin &Enjoy.contact_message_config
+    
+    rails_admin &Enjoy::Admin::ContactMessage.config
   end
 end

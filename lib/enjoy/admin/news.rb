@@ -1,56 +1,73 @@
 module Enjoy
   module Admin
     module News
-      extend ActiveSupport::Concern
-      include Enjoy::Model
-      include Seoable
-      include Enableable
-      include ManualSlug
-      include SitemapData
-      include Enjoy.orm_specific('News')
+      def self.config(fields = {})
+        Proc.new {
+          # navigation_label I18n.t('enjoy.cms')
+          list do
+            scopes [:by_date, :enabled, nil]
+          end
 
-      if Enjoy.config.search_enabled
-        include Enjoy::ElasticSearch
-      end
+          field :enabled, :toggle
+          field :time do
+            sort_reverse true
+          end
+          field :name
+          unless Enjoy.config.news_image_styles.nil?
+            field :image, :jcrop do
+              jcrop_options :image_jcrop_options
+            end
+          end
+          field :excerpt, :ck_editor
+          field :slugs, :enum do
+            enum_method do
+              :slugs
+            end
+            visible do
+              bindings[:view].current_user.admin?
+            end
+            multiple do
+              true
+            end
+          end
+          field :text_slug
 
-      included do
+          list do
+            sort_by :time
+          end
 
-        unless Enjoy.config.news_image_styles.nil?
-          validates_attachment_content_type :image, content_type: /\Aimage\/.*\Z/, if: :image?
-        end
+          edit do
+            field :content, :ck_editor
+            fields.each_pair do |name, type|
+              if type.nil?
+                field name
+              else
+                if type.is_a?(Array)
+                  field name, type[0], &type[1]
+                else
+                  field name, type
+                end
+              end
+            end
 
-        validates_presence_of :name
-        if Enjoy.config.news_content_required
-          validates_presence_of :content
-        end
+            group :seo do
+              active false
+              field :seo do
+                active true
+              end
+            end
+            group :sitemap_data do
+              active false
+              field :sitemap_data do
+                active true
+              end
+            end
+          end
 
-        before_validation do
-          self.time = Time.now if self.time.blank?
-        end
-        scope :recent, ->(count = 5) { enabled.after_now.by_date.limit(count) }
-        unless Enjoy.config.news_per_page.nil?
-          paginates_per Enjoy.config.news_per_page
-        end
-        smart_excerpt :excerpt, :content, Enjoy.config.news_excerpt
-        manual_slug :report_slug
-
-        Enjoy.apply_patches self
-      end
-
-      def report_slug
-        if time.blank?
-          name
-        elsif name.blank?
-          time.strftime('%Y-%m-%d')
-        else
-          time.strftime('%Y-%m-%d') + '-' + name[0..20]
-        end
-      end
-      def html5_date
-        time.strftime('%Y-%m-%d')
-      end
-      def format_date
-        time.strftime(I18n.t('rs.format_time'))
+          if block_given?
+            yield self
+          end
+        }
       end
     end
   end

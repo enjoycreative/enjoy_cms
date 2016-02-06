@@ -6,7 +6,7 @@ module Enjoy
 
   class Page
     include Enjoy::Models::Page
-    Enjoy.apply_patches self
-    rails_admin &Enjoy.page_config
+
+    rails_admin &Enjoy::Admin::Page.config
   end
 end

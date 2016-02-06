@@ -6,7 +6,7 @@ module Enjoy
 
   class News
     include Enjoy::Models::News
-    Enjoy.apply_patches self
-    rails_admin &Enjoy.news_config
+
+    rails_admin &Enjoy::Admin::News.config
   end
 end

@@ -1,14 +1,19 @@
 module Enjoy
   module Admin
     module EmbeddedGalleryImage
-      extend ActiveSupport::Concern
-      include Enjoy::Model
-      include Enjoy::Enableable
-      include Enjoy::Sortable
-      include Enjoy.orm_specific('EmbeddedGalleryImage')
+      def self.config(fields = {})
+        jcrop_proc = Proc.new do
+          jcrop_options :image_jcrop_options
+        end
 
-      included do
-        validates_attachment_content_type :image, content_type: /\Aimage\/.*\Z/, if: :image?
+        fields = {image: [:jcrop, jcrop_proc]}.merge(fields)
+        if block_given?
+          Enjoy::Admin::EmbeddedElement.config(nil, fields) do |config|
+            yield config
+          end
+        else
+          Enjoy::Admin::EmbeddedElement.config(nil, fields)
+        end
       end
     end
   end

@@ -1,17 +1,29 @@
 module Enjoy
   module Admin
     module GalleryImage
-      extend ActiveSupport::Concern
-      include Enjoy::Model
-      include Enableable
-      include Enjoy.orm_specific('GalleryImage')
+      def self.config(without_gallery = false, fields = {})
+        Proc.new {
+          # navigation_label I18n.t('enjoy.gallery')
+          field :enabled, :toggle
+          unless without_gallery
+            field :gallery
+          end
+          field :name, :string
+          field :image, :jcrop do
+            jcrop_options :image_jcrop_options
+          end
+          fields.each_pair do |name, type|
+            if type.nil?
+              field name
+            else
+              field name, type
+            end
+          end
 
-      included do
-
-        belongs_to :gallery, class_name: "Enjoy::Gallery"
-        field :name, type: String, localize: Enjoy.configuration.localize
-
-        validates_attachment_content_type :image, content_type: /\Aimage\/.*\Z/, if: :image?
+          if block_given?
+            yield self
+          end
+        }
       end
     end
   end

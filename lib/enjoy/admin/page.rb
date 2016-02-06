@@ -1,80 +1,77 @@
 module Enjoy
   module Admin
     module Page
-      extend ActiveSupport::Concern
-      include Enjoy::Model
-      include Enableable
-      include Seoable
-      include ManualSlug
-      include SitemapData
+      def self.config(fields = {})
+        Proc.new {
+          # navigation_label I18n.t('enjoy.cms')
+          list do
+            scopes [:sorted, :enabled, nil]
 
-      include Enjoy.orm_specific('Page')
+            field :enabled,  :toggle
+            field :menus, :menu
+            field :name
+            field :fullpath do
+              pretty_value do
+                bindings[:view].content_tag(:a, bindings[:object].fullpath, href: bindings[:object].fullpath)
+              end
+            end
+            field :redirect
+            field :slug
+          end
+          
+          edit do
+            field :name
+            field :excerpt, :ck_editor
+            field :content, :ck_editor
 
-      if Enjoy.config.search_enabled
-        include Enjoy::ElasticSearch
-      end
-
-      included do
-
-        has_and_belongs_to_many :menus, inverse_of: :pages, class_name: "Enjoy::Menu"
-        validates_uniqueness_of :fullpath
-        validates_presence_of :name
-        manual_slug :name
-        before_validation do
-          self.fullpath = "/pages/#{slug}" if self.fullpath.blank?
-        end
-      end
-
-      def get_fullpath
-        redirect.blank? ? fullpath : redirect
-      end
-
-      def has_content?
-        @content_used.nil? && !content.blank?
-      end
-
-      def page_content
-        if @content_used.nil?
-          @content_used = true
-          if content.nil?
-            ''
-          else
-            content.gsub(/\{\{(.*?)\}\}/) do
-              Settings ? Settings.get($1).val : "" #temp
+            group :menu do
+              label I18n.t('enjoy.menu')
+              field :menus
+              field :fullpath, :string do
+                help I18n.t('enjoy.with_final_slash')
+              end
+              field :regexp, :string do
+                help I18n.t('enjoy.page_url_regex')
+              end
+              field :redirect, :string do
+                help I18n.t('enjoy.final_in_menu')
+              end
+              field :text_slug
+            end
+            fields.each_pair do |name, type|
+              if type.nil?
+                field name
+              else
+                if type.is_a?(Array)
+                  field name, type[0], &type[1]
+                else
+                  field name, type
+                end
+              end
+            end
+            group :seo do
+              active false
+              field :seo do
+                active true
+              end
+            end
+            group :sitemap_data do
+              active false
+              field :sitemap_data do
+                active true
+              end
             end
           end
-        else
-          ''
-        end
-      end
 
-      def is_current?(url)
-        if fullpath == '/'
-          url == '/'
-        else
-          url.match(clean_regexp)
-        end
-      end
+          nested_set({
+            max_depth: Enjoy.config.menu_max_depth,
+            scopes: []
+          })
 
-      def regexp_prefix
-        ""
-      end
-
-      def clean_regexp
-        if regexp.blank?
-          /^#{regexp_prefix}#{Regexp.escape(fullpath)}$/
-        else
-          begin
-            /#{regexp}/
-          rescue
-            # not a valid regexp - treat as literal search string
-            /#{Regexp.escape(regexp)}/
+          if block_given?
+            yield self
           end
-        end
-      end
-
-      def nav_options
-        {highlights_on: clean_regexp}
+        }
       end
     end
   end

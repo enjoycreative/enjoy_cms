@@ -6,8 +6,7 @@ module Enjoy
 
   class SitemapData
     include Enjoy::Models::SitemapData
-    Enjoy.apply_patches self
-    rails_admin &Enjoy.sitemap_data_config
-    belongs_to :sitemap_data_field, polymorphic: true
+    
+    rails_admin &Enjoy::Admin::SitemapData.config
   end
 end

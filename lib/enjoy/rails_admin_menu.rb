@@ -12,9 +12,9 @@ module RailsAdmin
             ret = []
             menus = Rails.cache.fetch 'menus', expires_in: 10.minutes do
               if Enjoy.mongoid?
-                Enjoy::Menu.all.map { |m| {id: m.id.to_s, name: m.name } }
+                ::Enjoy::Menu.all.map { |m| {id: m.id.to_s, name: m.name } }
               else
-                Enjoy::Menu.all.map { |m| {id: m.id, name: m.name } }
+                ::Enjoy::Menu.all.map { |m| {id: m.id, name: m.name } }
               end
             end
             menus.each do |m|
@@ -84,7 +84,7 @@ module RailsAdmin
             if params['id'].present?
               begin
                 @object = @abstract_model.model.find(params['id'])
-                @menu = ::Menu.find(params[:menu])
+                @menu = ::Enjoy::Menu.find(params[:menu])
                 if params[:on] == 'true'
                   @object.menus << @menu
                 else

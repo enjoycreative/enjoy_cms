@@ -34,8 +34,6 @@ module Enjoy
         end
         smart_excerpt :excerpt, :content, Enjoy.config.news_excerpt
         manual_slug :report_slug
-
-        Enjoy.apply_patches self
       end
 
       def report_slug

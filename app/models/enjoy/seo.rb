@@ -6,8 +6,7 @@ module Enjoy
 
   class Seo
     include Enjoy::Models::Seo
-    Enjoy.apply_patches self
-    rails_admin &Enjoy.seo_config
-    belongs_to :seoable, polymorphic: true
+    
+    rails_admin &Enjoy::Admin::Seo.config
   end
 end

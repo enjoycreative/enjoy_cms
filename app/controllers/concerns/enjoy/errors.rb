@@ -33,13 +33,13 @@ module Enjoy::Errors
           #redirect_to scope.new_user_session_path, alert: "Необходимо авторизоваться"
           authenticate_user!
         else
-          redirect_to '/', alert: t('rs.errors.access_denied')
+          redirect_to '/', alert: t('enjoy.errors.access_denied')
         end
       end
     end
 
     rescue_from ActionController::InvalidAuthenticityToken do |exception|
-      redirect_to '/', alert: t('rs.errors.form_expired')
+      redirect_to '/', alert: t('enjoy.errors.form_expired')
     end
   end
 
@@ -71,7 +71,7 @@ module Enjoy::Errors
     Rails.logger.error "__________________________"
     begin
       if rails_admin?
-        render text: t('rs.errors.internal_error_full', klass: exception.class.name, message: exception.message), status: 500
+        render text: t('enjoy.errors.internal_error_full', klass: exception.class.name, message: exception.message), status: 500
         return
       end
     rescue Exception => e
