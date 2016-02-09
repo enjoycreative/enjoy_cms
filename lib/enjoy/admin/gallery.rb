@@ -1,7 +1,7 @@
 module Enjoy
   module Admin
     module Gallery
-      def self.config
+      def self.config(fields = {})
         Proc.new {
           # navigation_label I18n.t('enjoy.gallery')
           field :enabled, :toggle
@@ -22,6 +22,18 @@ module Enjoy
 
           field :image, :jcrop do
             jcrop_options :image_jcrop_options
+          end
+
+          fields.each_pair do |name, type|
+            if type.nil?
+              field name
+            else
+              if type.is_a?(Array)
+                field name, type[0], &type[1]
+              else
+                field name, type
+              end
+            end
           end
 
           if block_given?

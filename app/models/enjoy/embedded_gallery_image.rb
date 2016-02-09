@@ -2,7 +2,8 @@ module Enjoy
   if Enjoy.mongoid?
     class EmbeddedGalleryImage < Enjoy::EmbeddedElement
       include Enjoy::Models::EmbeddedGalleryImage
-      
+
+      include Enjoy::Decorators::EmbeddedGalleryImage
 
       # use it in inherited model
       # rails_admin &Enjoy::Admin::EmbeddedGalleryImage.config

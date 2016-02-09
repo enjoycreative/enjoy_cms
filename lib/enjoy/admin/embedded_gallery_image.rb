@@ -6,7 +6,7 @@ module Enjoy
           jcrop_options :image_jcrop_options
         end
 
-        fields = {image: [:jcrop, jcrop_proc]}.merge(fields)
+        fields.reverse_merge!({image: [:jcrop, jcrop_proc]})
         if block_given?
           Enjoy::Admin::EmbeddedElement.config(nil, fields) do |config|
             yield config

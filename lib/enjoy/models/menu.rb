@@ -7,6 +7,7 @@ module Enjoy
       include Enjoy::Enableable
 
       include Enjoy.orm_specific('Menu')
+
       included do
 
         field :name, type: String
@@ -17,6 +18,15 @@ module Enjoy
         end
         after_destroy do
           Rails.cache.delete 'menus'
+        end
+      end
+
+      module ClassMethods
+        def rails_admin_add_fields
+          {}
+        end
+
+        def rails_admin_add_config(config)
         end
       end
     end

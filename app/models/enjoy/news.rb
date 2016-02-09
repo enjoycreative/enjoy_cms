@@ -7,6 +7,10 @@ module Enjoy
   class News
     include Enjoy::Models::News
 
-    rails_admin &Enjoy::Admin::News.config
+    include Enjoy::Decorators::News
+
+    rails_admin(&Enjoy::Admin::News.config(rails_admin_add_fields) { |config|
+      rails_admin_add_config(config)
+    })
   end
 end

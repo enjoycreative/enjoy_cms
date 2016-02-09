@@ -12,6 +12,7 @@ module Enjoy
           field :image, :jcrop do
             jcrop_options :image_jcrop_options
           end
+          
           fields.each_pair do |name, type|
             if type.nil?
               field name

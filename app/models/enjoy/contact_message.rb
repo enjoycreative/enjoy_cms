@@ -6,7 +6,11 @@ module Enjoy
 
   class ContactMessage
     include Enjoy::Models::ContactMessage
-    
-    rails_admin &Enjoy::Admin::ContactMessage.config
+
+    include Enjoy::Decorators::ContactMessage
+
+    rails_admin(&Enjoy::Admin::ContactMessage.config(rails_admin_add_fields) { |config|
+      rails_admin_add_config(config)
+    })
   end
 end

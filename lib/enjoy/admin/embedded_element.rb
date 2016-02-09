@@ -6,6 +6,7 @@ module Enjoy
           # navigation_label(_navigation_label) unless _navigation_label.nil?
           field :enabled, :toggle
           field :name, :string
+
           fields.each_pair do |name, type|
             if type.nil?
               field name

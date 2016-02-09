@@ -6,7 +6,11 @@ module Enjoy
 
   class Seo
     include Enjoy::Models::Seo
-    
-    rails_admin &Enjoy::Admin::Seo.config
+
+    include Enjoy::Decorators::Seo
+
+    rails_admin(&Enjoy::Admin::Seo.config(false, rails_admin_add_fields) { |config|
+      rails_admin_add_config(config)
+    })
   end
 end

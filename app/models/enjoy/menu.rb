@@ -7,6 +7,10 @@ module Enjoy
   class Menu
     include Enjoy::Models::Menu
 
-    rails_admin &Enjoy::Admin::Menu.config
+    include Enjoy::Decorators::Menu
+
+    rails_admin(&Enjoy::Admin::Menu.config(rails_admin_add_fields) { |config|
+      rails_admin_add_config(config)
+    })
   end
 end

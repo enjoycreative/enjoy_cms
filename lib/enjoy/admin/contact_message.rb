@@ -1,7 +1,7 @@
 module Enjoy
   module Admin
     module ContactMessage
-      def self.config
+      def self.config(fields = {})
         Proc.new {
           # navigation_label I18n.t('enjoy.contact_message')
           field :c_at do
@@ -18,6 +18,18 @@ module Enjoy
               field fn, ft[1].to_sym
             else
               field fn
+            end
+          end
+
+          fields.each_pair do |name, type|
+            if type.nil?
+              field name
+            else
+              if type.is_a?(Array)
+                field name, type[0], &type[1]
+              else
+                field name, type
+              end
             end
           end
 

@@ -12,6 +12,15 @@ module Enjoy
       included do
         belongs_to :sitemap_data_field, polymorphic: true
       end
+
+      module ClassMethods
+        def rails_admin_add_fields
+          {}
+        end
+
+        def rails_admin_add_config(config)
+        end
+      end
     end
   end
 end

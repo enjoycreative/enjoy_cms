@@ -6,7 +6,11 @@ module Enjoy
 
   class SitemapData
     include Enjoy::Models::SitemapData
-    
-    rails_admin &Enjoy::Admin::SitemapData.config
+
+    include Enjoy::Decorators::SitemapData
+
+    rails_admin(&Enjoy::Admin::SitemapData.config(false, rails_admin_add_fields) { |config|
+      rails_admin_add_config(config)
+    })
   end
 end

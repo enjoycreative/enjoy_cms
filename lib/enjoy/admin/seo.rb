@@ -1,7 +1,7 @@
 module Enjoy
   module Admin
     module Seo
-      def self.config(is_active = true)
+      def self.config(is_active = true, fields = {})
         Proc.new {
           navigation_label 'SEO'
           field :seoable do
@@ -17,6 +17,18 @@ module Enjoy
 
           field :og_image, :jcrop do
             jcrop_options :og_image_jcrop_options
+          end
+
+          fields.each_pair do |name, type|
+            if type.nil?
+              field name
+            else
+              if type.is_a?(Array)
+                field name, type[0], &type[1]
+              else
+                field name, type
+              end
+            end
           end
 
           if block_given?

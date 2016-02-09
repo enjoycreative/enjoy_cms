@@ -21,16 +21,29 @@ module Enjoy
         end
 
         after_create do
-          mailer_class.send(mailer_method, self).deliver
+          mailer_class.send(mailer_method, self).deliver if send_emails?
+        end
+      end
+
+      module ClassMethods
+        def rails_admin_add_fields
+          {}
         end
 
-        def mailer_class
-          ContactMailer
+        def rails_admin_add_config(config)
         end
+      end
 
-        def mailer_method
-          :new_message_email
-        end
+      def send_emails?
+        true
+      end
+
+      def mailer_class
+        ContactMailer
+      end
+
+      def mailer_method
+        :new_message_email
       end
     end
   end

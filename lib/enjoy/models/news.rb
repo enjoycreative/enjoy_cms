@@ -36,6 +36,15 @@ module Enjoy
         manual_slug :report_slug
       end
 
+      module ClassMethods
+        def rails_admin_add_fields
+          {}
+        end
+
+        def rails_admin_add_config(config)
+        end
+      end
+
       def report_slug
         if time.blank?
           name

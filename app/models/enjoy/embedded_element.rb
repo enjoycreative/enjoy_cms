@@ -2,7 +2,9 @@ module Enjoy
   if Enjoy.mongoid?
     class EmbeddedElement
       include Enjoy::Models::EmbeddedElement
-      
+
+      include Enjoy::Decorators::EmbeddedElement
+
 
       # use it in inherited model
       # rails_admin &Enjoy::Admin::EmbeddedElement.config

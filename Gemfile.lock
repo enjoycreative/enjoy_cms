@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    enjoy_cms (0.2.0.3.2)
+    enjoy_cms (0.2.1)
       ack_rails_admin_jcrop
       addressable
       ckeditor
@@ -30,7 +30,7 @@ PATH
 GEM
   remote: https://rubygems.org/
   specs:
-    ack_rails_admin_jcrop (0.0.6)
+    ack_rails_admin_jcrop (0.0.7)
       mini_magick
       rails (>= 3.0.0)
       rails_admin (>= 0.3.0)
