@@ -12,6 +12,13 @@ if Enjoy.mongoid?
           jcrop_options = opts.delete(:jcrop_options)
         end
 
+        opts[:processors] ||= []
+        opts[:processors] << :paperclip_optimizer
+        opts[:processors].flatten!
+        opts[:processors].uniq!
+
+        opts[:convert_options] = {all: "-quality 75 -strip"} if opts[:convert_options].blank?
+
         has_mongoid_attached_file name, opts
         validates_attachment name, content_type: content_type unless content_type.blank?
         class_eval <<-EVAL
@@ -22,6 +29,12 @@ if Enjoy.mongoid?
             extension = File.extname(val)[1..-1]
             file_name = val[0..val.size-extension.size-1]
             self[:#{name}_file_name] = "\#{file_name.filename_to_slug}.\#{extension.filename_to_slug}"
+          end
+
+          before_#{name}_post_process do
+            p_o = self.#{name}.processors.delete :paperclip_optimizer
+            self.#{name}.processors << p_o if p_o
+            true
           end
         EVAL
         if jcrop_options

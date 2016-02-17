@@ -15,14 +15,14 @@ create_file 'Gemfile' do <<-TEXT
 source 'https://rubygems.org'
 
 gem 'rails', '4.2.4' #'~> 5.0.0.beta1'
-#{if mongoid then "gem 'mongoid', '~> 5.0.0'" else "gem 'pg'" end}
+#{if mongoid then "gem 'mongoid'" else "gem 'pg'" end}
 
-gem 'sass', '~> 3.4.0'
+gem 'sass'
 gem 'sass-rails'
-gem 'compass-rails', '~> 2.0.0'
-gem 'compass', '~> 1.0.0'
+gem 'compass-rails'
+gem 'compass'
 
-#{if mongoid then "gem 'enjoy_cms_mongoid'" else "gem 'enjoy_cms_activerecord'" end}, '~> 0.2.0.beta', git: 'https://github.com/enjoycreative/enjoy_cms'
+#{if mongoid then "gem 'enjoy_cms_mongoid'" else "gem 'enjoy_cms_activerecord'" end}, '~> 0.3.0'
 
 gem 'devise'
 
@@ -34,7 +34,8 @@ gem 'cloner'
 gem 'unicorn'
 gem 'x-real-ip'
 
-gem 'sentry-raven'
+#temp
+#gem 'sentry-raven'
 
 group :development do
   gem 'better_errors'

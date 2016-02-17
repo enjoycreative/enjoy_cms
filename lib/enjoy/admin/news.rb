@@ -18,7 +18,7 @@ module Enjoy
               jcrop_options :image_jcrop_options
             end
           end
-          field :excerpt, :ck_editor
+          field :excerpt, :enjoy_html
           field :slugs, :enum do
             enum_method do
               :slugs
@@ -37,7 +37,7 @@ module Enjoy
           end
 
           edit do
-            field :content, :ck_editor
+            field :content, :enjoy_html
             fields.each_pair do |name, type|
               if type.nil?
                 field name

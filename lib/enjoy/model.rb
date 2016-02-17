@@ -21,7 +21,8 @@ module Enjoy
       if Enjoy.mongoid? && defined?(Trackable)
         include Trackable
       end
-    end
 
+      include Enjoy::RailsAdminPatch
+    end
   end
 end

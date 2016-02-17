@@ -12,15 +12,6 @@ module Enjoy
 
         validates_attachment_content_type :og_image, content_type: /\Aimage\/.*\Z/, if: :og_image?
       end
-
-      module ClassMethods
-        def rails_admin_add_fields
-          {}
-        end
-
-        def rails_admin_add_config(config)
-        end
-      end
     end
   end
 end

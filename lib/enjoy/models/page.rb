@@ -23,15 +23,6 @@ module Enjoy
         end
       end
 
-      module ClassMethods
-        def rails_admin_add_fields
-          {}
-        end
-
-        def rails_admin_add_config(config)
-        end
-      end
-
       def page_h1
         _ret = seo ? seo.h1 : nil
         _ret = name   if _ret.blank?

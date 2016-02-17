@@ -18,11 +18,11 @@ module Enjoy
             field :redirect
             field :slug
           end
-          
+
           edit do
             field :name
-            field :excerpt, :ck_editor
-            field :content, :ck_editor
+            field :excerpt, :enjoy_html
+            field :content, :enjoy_html
 
             group :menu do
               label I18n.t('enjoy.menu')

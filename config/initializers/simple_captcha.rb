@@ -21,7 +21,7 @@ SimpleCaptcha.setup do |sc|
   sc.length = 4
   sc.charset = "1234567890"
 
-  sc.add_image_style("enjoy_cms_style", ["-alpha set", "-fill '#ffffff'", "-background 'transparent'", "-size 200x50", "xc:transparent"])
+  sc.add_image_style("enjoy_cms_style", ["-alpha set", "-fill 'red'", "-background 'transparent'", "-size 200x50", "xc:transparent"])
 
   sc.image_style = 'enjoy_cms_style'
 
