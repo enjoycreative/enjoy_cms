@@ -38,7 +38,7 @@ module Enjoy
     attr_accessor :routes_config
 
     def initialize
-      @news_image_convert_options {}
+      @news_image_convert_options = {}
       @news_image_styles = {
           main:  '400x200>',
           thumb: '200x100>'

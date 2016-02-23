@@ -7,6 +7,7 @@ module Enjoy
 
           field :enabled, :toggle
           field :name
+          field :content, :enjoy_html
 
           fields.each_pair do |name, type|
             if type.nil?
@@ -20,18 +21,18 @@ module Enjoy
             end
           end
 
-          field :items do
-            read_only true
-            help 'Список блоков'
-
-            pretty_value do
-              bindings[:object].items.to_a.map { |i|
-                route = (bindings[:view] || bindings[:controller])
-                model_name = i.rails_admin_model
-                route.link_to(i.name, route.rails_admin.show_path(model_name: model_name, id: i.id), title: i.name)
-              }.join("<br>").html_safe
-            end
-          end
+          # field :blocksets do
+          #   read_only true
+          #   help 'Список групп блоков'
+          #
+          #   pretty_value do
+          #     bindings[:object].blocksets.to_a.map { |bs|
+          #       route = (bindings[:view] || bindings[:controller])
+          #       model_name = bs.rails_admin_model
+          #       route.link_to(bs.name, route.rails_admin.show_path(model_name: model_name, id: bs.id), title: bs.name)
+          #     }.join("<br>").html_safe
+          #   end
+          # end
 
           if block_given?
             yield self

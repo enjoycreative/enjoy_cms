@@ -76,6 +76,9 @@ module Enjoy
     autoload :EmbeddedGalleryImage, 'enjoy/admin/embedded_gallery_image'
     autoload :GalleryImage,         'enjoy/admin/gallery_image'
     autoload :Gallery,              'enjoy/admin/gallery'
+
+    autoload :PageBlock,            'enjoy/admin/page_block'
+    autoload :PageBlockset,         'enjoy/admin/page_blockset'
   end
 
   module Models
@@ -92,6 +95,9 @@ module Enjoy
     autoload :GalleryImage,         'enjoy/models/gallery_image'
     autoload :Gallery,              'enjoy/models/gallery'
 
+    autoload :PageBlock,             'enjoy/models/page_block'
+    autoload :PageBlockset,          'enjoy/models/page_blockset'
+
     module Mongoid
       autoload :SitemapData,  'enjoy/models/mongoid/sitemap_data'
       autoload :Seo,  'enjoy/models/mongoid/seo'
@@ -105,6 +111,9 @@ module Enjoy
       autoload :EmbeddedGalleryImage, 'enjoy/models/mongoid/embedded_gallery_image'
       autoload :GalleryImage,         'enjoy/models/mongoid/gallery_image'
       autoload :Gallery,              'enjoy/models/mongoid/gallery'
+
+      autoload :PageBlock,             'enjoy/models/mongoid/page_block'
+      autoload :PageBlockset,          'enjoy/models/mongoid/page_blockset'
     end
 
     module ActiveRecord
