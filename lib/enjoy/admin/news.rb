@@ -19,6 +19,8 @@ module Enjoy
             end
           end
           field :excerpt, :enjoy_html
+          # field :excerpt_html, :ck_editor
+          # field :excerpt_clear, :toggle
           field :slugs, :enum do
             enum_method do
               :slugs
@@ -38,6 +40,8 @@ module Enjoy
 
           edit do
             field :content, :enjoy_html
+            # field :content_html, :ck_editor
+            # field :content_clear, :toggle
             fields.each_pair do |name, type|
               if type.nil?
                 field name

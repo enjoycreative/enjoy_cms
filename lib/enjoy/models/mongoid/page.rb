@@ -7,6 +7,10 @@ module Enjoy
         include Enjoy::HtmlField
 
         included do
+          if defined?(RailsAdminComments)
+            include RailsAdminComments::Commentable
+          end
+
           field :name, type: String, localize: Enjoy.config.localize, default: ""
 
           field :regexp, type: String, default: ""

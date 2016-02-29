@@ -22,7 +22,11 @@ module Enjoy
           edit do
             field :name
             field :excerpt, :enjoy_html
+            # field :excerpt_html, :ck_editor
+            # field :excerpt_clear, :toggle
             field :content, :enjoy_html
+            # field :content_html, :ck_editor
+            # field :content_clear, :toggle
 
             group :menu do
               label I18n.t('enjoy.menu')

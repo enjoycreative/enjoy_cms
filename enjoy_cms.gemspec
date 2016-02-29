@@ -51,7 +51,6 @@ Gem::Specification.new do |spec|
   spec.add_dependency 'thor'
   spec.add_dependency 'smart_excerpt'
 
-
   spec.add_dependency 'rails_admin_sort_embedded'
   spec.add_dependency 'image_optim'
   spec.add_dependency 'image_optim_pack'

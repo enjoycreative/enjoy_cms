@@ -22,7 +22,7 @@ module Enjoy
 
         validates_presence_of :name
         if Enjoy.config.news_content_required
-          validates_presence_of :content
+          validates_presence_of :content_html
         end
 
         before_validation do

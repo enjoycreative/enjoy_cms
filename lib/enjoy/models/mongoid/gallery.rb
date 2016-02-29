@@ -6,6 +6,10 @@ module Enjoy
         include Enjoy::MongoidPaperclip
 
         included do
+          if defined?(RailsAdminComments)
+            include RailsAdminComments::Commentable
+          end
+
 
           manual_slug :name
 

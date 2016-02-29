@@ -6,8 +6,8 @@ module Enjoy
           # navigation_label 'CMS'
 
           field :enabled, :toggle
+          field :text_slug
           field :name
-
 
           field :blocks
 
@@ -35,6 +35,12 @@ module Enjoy
           #     }.join("<br>").html_safe
           #   end
           # end
+
+          sort_embedded(
+              {
+                  fields: [:blocks]
+              }
+          )
 
           if block_given?
             yield self

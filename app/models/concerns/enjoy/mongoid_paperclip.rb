@@ -37,6 +37,7 @@ if Enjoy.mongoid?
             true
           end
         EVAL
+        jcrop_options ||= {}
         if jcrop_options
           class_eval <<-EVAL
             def #{name}_jcrop_options

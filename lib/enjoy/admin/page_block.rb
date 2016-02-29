@@ -6,8 +6,13 @@ module Enjoy
           # navigation_label 'CMS'
 
           field :enabled, :toggle
+          field :partial, :toggle
           field :name
+          field :file_path, :string
+
           field :content, :enjoy_html
+          # field :content_html, :ck_editor
+          # field :content_clear, :toggle
 
           fields.each_pair do |name, type|
             if type.nil?

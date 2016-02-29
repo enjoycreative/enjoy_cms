@@ -6,6 +6,10 @@ module Enjoy
         include Enjoy::MongoidPaperclip
         included do
 
+          if defined?(RailsAdminComments)
+            include RailsAdminComments::Commentable
+          end
+
           field :name, type: String, localize: Enjoy.config.localize
           field :h1, type: String, localize: Enjoy.config.localize
 
@@ -28,7 +32,7 @@ module Enjoy
         def og_image_convert_options
           {}
         end
-        
+
       end
     end
   end

@@ -5,6 +5,10 @@ module Enjoy
         extend ActiveSupport::Concern
 
         included do
+          if defined?(RailsAdminComments)
+            include RailsAdminComments::Commentable
+          end
+
           has_and_belongs_to_many :pages, inverse_of: :menus, class_name: "Enjoy::Page"
           alias_method :items, :pages
 

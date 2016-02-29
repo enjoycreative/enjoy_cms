@@ -5,6 +5,7 @@ module Enjoy::Controller
     include Enjoy::SeoPages
     include Enjoy::NavMenu
     include Enjoy::Fancybox
+    include Enjoy::Blocksetable
     protect_from_forgery with: :exception
     helper_method :page_title
     helper_method :hide_ym_ga

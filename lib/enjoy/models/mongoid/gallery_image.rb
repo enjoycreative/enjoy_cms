@@ -6,6 +6,10 @@ module Enjoy
         include Enjoy::MongoidPaperclip
 
         included do
+          if defined?(RailsAdminComments)
+            include RailsAdminComments::Commentable
+          end
+
 
           acts_as_nested_set
           scope :sorted, -> { order_by([:lft, :asc]) }

@@ -22,7 +22,7 @@ gem 'sass-rails'
 gem 'compass-rails'
 gem 'compass'
 
-#{if mongoid then "gem 'enjoy_cms_mongoid'" else "gem 'enjoy_cms_activerecord'" end}, '~> 0.3.0'
+#{if mongoid then "gem 'enjoy_cms_mongoid'" else "gem 'enjoy_cms_activerecord'" end}, '~> 0.3.1'
 
 gem 'devise'
 
@@ -73,7 +73,6 @@ end
 
 gem 'slim'
 gem 'sprockets'
-
 
 gem 'sitemap_generator'
 gem 'rails_admin_sitemap'

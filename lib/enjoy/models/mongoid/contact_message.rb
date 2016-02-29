@@ -4,6 +4,9 @@ module Enjoy
       module ContactMessage
         extend ActiveSupport::Concern
         included do
+          if defined?(RailsAdminComments)
+            include RailsAdminComments::Commentable
+          end
 
           field :name, type: String
           field :email, type: String

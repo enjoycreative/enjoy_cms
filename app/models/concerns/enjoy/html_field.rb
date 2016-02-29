@@ -6,7 +6,7 @@ if Enjoy.mongoid?
       def enjoy_cms_html_field(name, opts = {})
         clear_by_default = opts.delete(:clear_by_default)
         clear_by_default = false unless clear_by_default == true
-        
+
         field "#{name}_html", opts
         field "#{name}_clear", type: Boolean, default: clear_by_default
 

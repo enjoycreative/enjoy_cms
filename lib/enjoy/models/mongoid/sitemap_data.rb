@@ -3,8 +3,13 @@ module Enjoy
     module Mongoid
       module SitemapData
         extend ActiveSupport::Concern
-        
+
         included do
+
+          if defined?(RailsAdminComments)
+            include RailsAdminComments::Commentable
+          end
+
           field :sitemap_show,        type: Boolean, default: true
           field :sitemap_lastmod,     type: DateTime
           field :sitemap_changefreq,  type: String,   default: 'daily'
