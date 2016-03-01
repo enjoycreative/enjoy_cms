@@ -29,8 +29,6 @@ require 'turbolinks'
 require 'simple-navigation'
 require 'ack_rails_admin_jcrop'
 
-require 'paperclip-optimizer'
-
 require 'enjoy/configuration'
 require 'enjoy/elastic_search'
 require 'enjoy/model'

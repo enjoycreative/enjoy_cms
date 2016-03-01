@@ -21,16 +21,12 @@ module Enjoy
           field :og_title, type: String, localize: Enjoy.config.localize
           enjoy_cms_mongoid_attached_file(:og_image,
                     styles: lambda { |attachment| attachment.instance.og_image_styles },
-                    convert_options: lambda { |attachment| attachment.instance.og_image_convert_options },
                     content_type: { content_type: ["image/jpg", "image/jpeg", "image/png"] }
           )
         end
 
         def og_image_styles
           {thumb: "800x600>"}
-        end
-        def og_image_convert_options
-          {}
         end
 
       end

@@ -21,7 +21,6 @@ module Enjoy
           unless Enjoy.config.news_image_styles.nil?
             enjoy_cms_mongoid_attached_file(:image,
                       styles: Enjoy.configuration.news_image_styles,
-                      convert_options: Enjoy.configuration.news_image_convert_options,
                       content_type: { content_type: ["image/jpg", "image/jpeg", "image/png"] }
             )
           end
