@@ -7,18 +7,21 @@ module Enjoy
           field :enabled, :toggle
 
           field :name, :string
-          field :slugs, :enum do
-            enum_method do
-              :slugs
+          group :URL do
+            active false
+            field :slugs, :enum do
+              enum_method do
+                :slugs
+              end
+              visible do
+                bindings[:view].current_user.admin?
+              end
+              multiple do
+                true
+              end
             end
-            visible do
-              bindings[:view].current_user.admin?
-            end
-            multiple do
-              true
-            end
+            field :text_slug
           end
-          field :text_slug
 
           field :image, :jcrop do
             jcrop_options :image_jcrop_options

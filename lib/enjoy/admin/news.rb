@@ -18,30 +18,39 @@ module Enjoy
               jcrop_options :image_jcrop_options
             end
           end
-          field :excerpt, :enjoy_html
-          # field :excerpt_html, :ck_editor
-          # field :excerpt_clear, :toggle
-          field :slugs, :enum do
-            enum_method do
-              :slugs
-            end
-            visible do
-              bindings[:view].current_user.admin?
-            end
-            multiple do
-              true
-            end
+          group :content do
+            active false
+            field :excerpt, :enjoy_html
+            # field :excerpt_html, :ck_editor
+            # field :excerpt_clear, :toggle
           end
-          field :text_slug
+          group :URL do
+            active false
+            field :slugs, :enum do
+              enum_method do
+                :slugs
+              end
+              visible do
+                bindings[:view].current_user.admin?
+              end
+              multiple do
+                true
+              end
+            end
+            field :text_slug
+          end
 
           list do
             sort_by :time
           end
 
           edit do
-            field :content, :enjoy_html
-            # field :content_html, :ck_editor
-            # field :content_clear, :toggle
+            group :text do
+              active false
+              field :content, :enjoy_html
+              # field :content_html, :ck_editor
+              # field :content_clear, :toggle
+            end
             fields.each_pair do |name, type|
               if type.nil?
                 field name

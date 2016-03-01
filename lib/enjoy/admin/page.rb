@@ -21,14 +21,19 @@ module Enjoy
 
           edit do
             field :name
-            field :excerpt, :enjoy_html
-            # field :excerpt_html, :ck_editor
-            # field :excerpt_clear, :toggle
-            field :content, :enjoy_html
-            # field :content_html, :ck_editor
-            # field :content_clear, :toggle
+
+            group :content do
+              active false
+              field :excerpt, :enjoy_html
+              # field :excerpt_html, :ck_editor
+              # field :excerpt_clear, :toggle
+              field :content, :enjoy_html
+              # field :content_html, :ck_editor
+              # field :content_clear, :toggle
+            end
 
             group :menu do
+              active false
               label I18n.t('enjoy.menu')
               field :menus
               field :fullpath, :string do
