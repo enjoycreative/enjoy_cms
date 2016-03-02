@@ -45,7 +45,7 @@ module Enjoy
           end
 
           edit do
-            group :text do
+            group :content do
               active false
               field :content, :enjoy_html
               # field :content_html, :ck_editor

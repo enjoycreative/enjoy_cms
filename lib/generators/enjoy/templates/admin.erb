@@ -53,6 +53,12 @@ RailsAdmin.config do |config|
       end
     end
 
+    sort_embedded do
+      visible do
+        ['Enjoy::PageBlockset'].include? bindings[:abstract_model].model_name
+      end
+    end
+
     toggle
     toggle_menu  do
       visible do

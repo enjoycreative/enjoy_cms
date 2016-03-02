@@ -17,6 +17,7 @@ require 'rails_admin'
 require 'rails_admin_nested_set'
 require 'rails_admin_toggleable'
 # require 'rails_admin_settings'
+require 'rails_admin_sort_embedded'
 
 require 'x-real-ip'
 
