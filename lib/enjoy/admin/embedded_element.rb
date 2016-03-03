@@ -7,17 +7,7 @@ module Enjoy
           field :enabled, :toggle
           field :name, :string
 
-          fields.each_pair do |name, type|
-            if type.nil?
-              field name
-            else
-              if type.is_a?(Array)
-                field name, type[0], &type[1]
-              else
-                field name, type
-              end
-            end
-          end
+          Enjoy::RailsAdminGroupPatch::enjoy_cms_group(self, fields)
 
           if block_given?
             yield self

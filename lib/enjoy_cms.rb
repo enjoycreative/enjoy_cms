@@ -9,6 +9,8 @@ require 'devise'
 require 'simple_form'
 require 'enjoy/simple_form_patch'
 
+require 'geocoder'
+
 require 'glebtv-simple_captcha'
 require 'validates_email_format_of'
 require 'smart_excerpt'
@@ -35,6 +37,8 @@ require 'enjoy/elastic_search'
 require 'enjoy/model'
 require 'enjoy/rails_admin_menu'
 require 'enjoy/rails_admin_enjoy_html'
+require 'enjoy/rails_admin_enjoy_hash'
+require 'enjoy/rails_admin_group_patch'
 require 'enjoy/engine'
 require 'enjoy/controller'
 

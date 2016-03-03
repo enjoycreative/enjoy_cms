@@ -11,17 +11,7 @@ module Enjoy
 
           field :blocks
 
-          fields.each_pair do |name, type|
-            if type.nil?
-              field name
-            else
-              if type.is_a?(Array)
-                field name, type[0], &type[1]
-              else
-                field name, type
-              end
-            end
-          end
+          Enjoy::RailsAdminGroupPatch::enjoy_cms_group(self, fields)
 
           # field :blocks do
           #   read_only true

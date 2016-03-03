@@ -28,8 +28,6 @@ module Enjoy
     attr_accessor :contacts_message_required
     attr_accessor :contacts_captcha_error_message
 
-    attr_accessor :separate_seo_table
-
     attr_accessor :localize
 
     attr_accessor :recreate_contact_message_action
@@ -60,8 +58,6 @@ module Enjoy
       @recreate_contact_message_action = "new"
 
       @localize = false
-
-      @separate_seo_table = false
 
       @routes_config = {
         use_contacts_path: true,

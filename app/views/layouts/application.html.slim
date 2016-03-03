@@ -8,10 +8,10 @@ html lang="ru"
     = csrf_meta_tags
     = render partial: "blocks/favicon"
     
-    = stylesheet_link_tag "application", media: "all", async: true
-    = javascript_include_tag "application", async: true
+    = stylesheet_link_tag "application", media: "all", async: Rails.env == "production"
+    = javascript_include_tag "application", async: Rails.env == "production"
     /[if lt IE 9]
-      = javascript_include_tag "//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.2/html5shiv.min.js", async: true
+      = javascript_include_tag "//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.2/html5shiv.min.js", async: Rails.env == "production"
       
   body
     #root

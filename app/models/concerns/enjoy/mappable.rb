@@ -4,7 +4,7 @@ module Enjoy::Mappable
   included do
 
     if Enjoy.mongoid?
-      include Geocoder::Model::Mongoid
+      include ::Geocoder::Model::Mongoid
       field :coordinates, type: Array
       field :address, type: String
 

@@ -1,7 +1,7 @@
 module Enjoy::GzipHelper
   def gzip_javascript_include_tag(*sources)
     # Grab the asset html include tag
-    tag = javascript_include_tag *sources
+    tag = javascript_include_tag(*sources)
 
     # If we are in production and the requesting client accepts gzip encoding, swap for the gzip asset
     if Rails.env.production? && request.accept_encoding =~ /gzip/i
@@ -14,7 +14,7 @@ module Enjoy::GzipHelper
 
   def gzip_stylesheet_link_tag(*sources)
     # Grab the asset html include tag
-    tag = stylesheet_link_tag *sources
+    tag = stylesheet_link_tag(*sources)
 
     # If we are in production and the requesting client accepts gzip encoding, swap for the gzip asset
     if Rails.env.production? && request.accept_encoding =~ /gzip/i

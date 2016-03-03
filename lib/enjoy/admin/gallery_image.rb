@@ -12,14 +12,8 @@ module Enjoy
           field :image, :jcrop do
             jcrop_options :image_jcrop_options
           end
-          
-          fields.each_pair do |name, type|
-            if type.nil?
-              field name
-            else
-              field name, type
-            end
-          end
+
+          Enjoy::RailsAdminGroupPatch::enjoy_cms_group(self, fields)
 
           if block_given?
             yield self
