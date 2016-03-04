@@ -1,3 +1,5 @@
+require 'rails_admin/config/fields/types/ck_editor'
+
 module RailsAdmin
   module Config
     module Fields
@@ -34,7 +36,7 @@ module RailsAdmin
           register_instance_option :export_value do
             pretty_value
           end
-          
+
 
           register_instance_option :boolean_view_helper do
             :check_box

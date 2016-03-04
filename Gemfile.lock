@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    enjoy_cms (0.3.3)
+    enjoy_cms (0.3.4)
       ack_rails_admin_jcrop
       addressable
       ckeditor

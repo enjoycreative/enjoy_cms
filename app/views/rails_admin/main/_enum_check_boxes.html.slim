@@ -1,4 +1,4 @@
-:ruby
+ruby:
   values = form.object.class.send(field.method_name).values.map { |v|
     [t("enumerize.#{form.object.class.name.downcase}.#{field.method_name}.#{v}", default: t("enumerize.defaults.#{field.method_name}.#{v}")), v]
   }

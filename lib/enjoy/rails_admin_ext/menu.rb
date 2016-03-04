@@ -1,3 +1,5 @@
+require 'rails_admin/config/fields/base'
+
 module RailsAdmin
   module Config
     module Fields

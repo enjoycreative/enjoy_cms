@@ -13,6 +13,7 @@ module Enjoy
             sort_reverse true
           end
           field :name
+          field :connected_pages, :enjoy_connectable
           unless Enjoy.config.news_image_styles.nil?
             field :image, :jcrop do
               jcrop_options :image_jcrop_options

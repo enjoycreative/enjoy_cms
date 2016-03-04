@@ -16,7 +16,7 @@ module Enjoy::NavMenu
         }
       end
     end
-    cr = item.clean_regexp
+    # cr = item.clean_regexp
     navigation_item(primary, item, block)
   end
 
@@ -52,7 +52,23 @@ module Enjoy::NavMenu
   end
 
   def nav_get_url(item)
-    item.redirect.blank? ? item.fullpath : item.redirect
+    _connectable = item.connectable
+    if _connectable and _connectable.enabled
+      begin
+        _routes_namespace = _connectable.respond_to?(:routes_namespace) ? _connectable.routes_namespace : :main_app
+        send(_routes_namespace.to_sym).url_for(_connectable)
+      rescue Exception => exception
+        Rails.logger.error exception.message
+        Rails.logger.error exception.backtrace.join("\n")
+        puts exception.message
+        puts exception.backtrace.join("\n")
+        capture_exception(exception) if respond_to?(:capture_exception)
+        
+        item.redirect.blank? ? item.fullpath : item.redirect
+      end
+    else
+      item.redirect.blank? ? item.fullpath : item.redirect
+    end
   end
   def nav_get_menu_items(type)
     menu = menu_class.find(type.to_s)

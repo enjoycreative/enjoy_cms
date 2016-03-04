@@ -10,6 +10,7 @@ module Enjoy
             field :enabled,  :toggle
             field :menus, :menu
             field :name
+            field :connectable
             field :fullpath do
               pretty_value do
                 bindings[:view].content_tag(:a, bindings[:object].fullpath, href: bindings[:object].fullpath)
@@ -21,6 +22,9 @@ module Enjoy
 
           edit do
             field :name
+            field :connectable do
+              read_only true
+            end
 
             group :content do
               active false
@@ -49,7 +53,7 @@ module Enjoy
             end
 
             Enjoy::RailsAdminGroupPatch::enjoy_cms_group(self, fields)
-            
+
             group :seo do
               active false
               field :seo do

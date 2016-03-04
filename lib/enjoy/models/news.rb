@@ -7,6 +7,7 @@ module Enjoy
       include Enjoy::Seoable
       include Enjoy::Enableable
       include Enjoy::SitemapDataField
+      include Enjoy::Connectable
 
       include Enjoy.orm_specific('News')
 
@@ -15,6 +16,7 @@ module Enjoy
       # end
 
       included do
+        enjoy_connectable_field :connected_pages, routes_namespace: :enjoy_cms
 
         unless Enjoy.config.news_image_styles.nil?
           validates_attachment_content_type :image, content_type: /\Aimage\/.*\Z/, if: :image?

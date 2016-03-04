@@ -11,6 +11,24 @@ module Enjoy
             include RailsAdminComments::Commentable
           end
 
+          belongs_to :connectable, polymorphic: true
+          scope :connected, -> {
+            where(:connectable_id.ne => nil)
+          }
+          scope :unconnected, -> (except_this = nil) {
+            if except_this
+              where({"$or" =>[
+                {:connectable_id => nil},
+                {"$and" => [
+                  {connectable_type: except_this.class.to_param},
+                  {connectable_id: except_this._id}
+                ]}
+              ]})
+            else
+              where(:connectable_id => nil)
+            end
+          }
+
           field :name, type: String, localize: Enjoy.config.localize, default: ""
 
           field :regexp, type: String, default: ""
