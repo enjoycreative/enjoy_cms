@@ -106,6 +106,7 @@ create_file '.gitignore' do <<-TEXT
 /tmp/*
 /public/assets
 /public/ckeditor_assets
+Gemfile.lock
 TEXT
 end
 
@@ -414,7 +415,7 @@ Rails.application.routes.draw do
   mount RailsAdmin::Engine => '/admin', as: 'rails_admin'
   mount Ckeditor::Engine => '/ckeditor'
 
-  mount Enjoy::Engine => '/', as: 'enjoy_cms'
+  enjoy_cms_routes
 end
 TEXT
 end

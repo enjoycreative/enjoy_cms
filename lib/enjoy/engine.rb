@@ -1,6 +1,6 @@
 module Enjoy
   class Engine < ::Rails::Engine
-    isolate_namespace Enjoy
+    # isolate_namespace Enjoy
 
     rake_tasks do
       require File.expand_path('../tasks', __FILE__)

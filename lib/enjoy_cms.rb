@@ -5,6 +5,7 @@ end
 
 require 'enjoy/version'
 require 'devise'
+require 'enjoy/routes'
 
 require 'simple_form'
 require 'enjoy/simple_form_patch'

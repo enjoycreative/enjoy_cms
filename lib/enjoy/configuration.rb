@@ -32,8 +32,6 @@ module Enjoy
 
     attr_accessor :recreate_contact_message_action
 
-    attr_accessor :routes_config
-
     def initialize
       @news_image_styles = {
           main:  '400x200>',
@@ -58,15 +56,6 @@ module Enjoy
       @recreate_contact_message_action = "new"
 
       @localize = false
-
-      @routes_config = {
-        use_contacts_path: true,
-        use_search_path: true,
-        use_news_path: true,
-        root_path: "home#index",
-        use_slug_path: true,
-        use_pages_path: true
-      }
     end
 
     def search_enabled=(val)

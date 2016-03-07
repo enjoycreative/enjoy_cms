@@ -16,7 +16,7 @@ module Enjoy
       # end
 
       included do
-        enjoy_connectable_field :connected_pages, routes_namespace: :enjoy_cms
+        enjoy_connectable_field :connected_pages
 
         unless Enjoy.config.news_image_styles.nil?
           validates_attachment_content_type :image, content_type: /\Aimage\/.*\Z/, if: :image?
