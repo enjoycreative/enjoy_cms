@@ -1,7 +1,7 @@
 window.create_enjoy_cms_feedback_ajax_form = (form_selector = "#new_contact_message", wrapper_selector = "#enjoy_cms_contact_form" )->
 
-  $(document).delegate form_id, "ajax:complete", (event, xhr, status)->
-    $(event.currentTarget).closest().html(xhr.responseText)
+  $(document).delegate form_selector, "ajax:complete", (event, xhr, status)->
+    $(event.currentTarget).closest(wrapper_selector).html(xhr.responseText)
 
   $(document).delegate form_selector + " .input", 'click', (e) ->
     e.preventDefault()
