@@ -1,17 +1,18 @@
 doctype html
 html lang="ru"
   head
-    meta chaenjoyet="UTF-8"
+    meta charset="UTF-8"
     meta name="viewport" content="width=device-width, maximum-scale=1"
     title= page_title
     = yield :meta
     = csrf_meta_tags
     = render partial: "blocks/favicon"
     
-    = stylesheet_link_tag "application", media: "all", async: Rails.env == "production"
-    = javascript_include_tag "application", async: Rails.env == "production"
+    - async = Rails.env == "production"
+    = stylesheet_link_tag "application", media: "all", async: async
+    = javascript_include_tag "application", async: async
     /[if lt IE 9]
-      = javascript_include_tag "//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.2/html5shiv.min.js", async: Rails.env == "production"
+      = javascript_include_tag "//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.2/html5shiv.min.js", async: async
       
   body
     #root

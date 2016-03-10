@@ -38,7 +38,8 @@ module Enjoy
       private
       def render_contacts_error
         if request.xhr? && process_ajax
-          render json: {errors: @contact_message.errors}, status: 422
+          render partial: form_partial
+          # render json: {errors: @contact_message.errors}, status: 422
         else
           flash.now[:alert] = @contact_message.errors.full_messages.join("\n")
           render action: Enjoy.configuration.recreate_contact_message_action, status: 422
@@ -54,16 +55,23 @@ module Enjoy
         redirect_to :contacts_sent
       end
       def after_initialize
-        # overrideable hook for updating message
+        if request.xhr?
+          render partial: form_partial
+        end
       end
       def after_create
         # overrideable hook for updating message
+      end
+      def form_partial
+        "enjoy/contacts/form"
       end
       def model
         Enjoy::ContactMessage
       end
       def message_params
-        params.require(:contact_message).permit(Enjoy.config.contacts_fields.keys + [:name, :email, :phone, :content, :captcha, :captcha_key])
+        params.require(model.to_param.gsub("::", "").underscore).permit(
+          Enjoy.config.contacts_fields.keys + [:name, :email, :phone, :content, :captcha, :captcha_key]
+        )
       end
     end
   end

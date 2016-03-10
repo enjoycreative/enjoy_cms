@@ -21,7 +21,6 @@ module Enjoy
             end
           end
 
-
           Enjoy::RailsAdminGroupPatch::enjoy_cms_group(self, fields)
 
           if block_given?

@@ -15,7 +15,7 @@ module ActionDispatch::Routing
       scope module: 'enjoy' do
         if routes_config[:use_contacts_path]
           get 'contacts' => 'contacts#new', as: :enjoy_contacts
-          post 'contacts' => 'contacts#create', as: :enjoy_create_contacts
+          post 'contacts' => 'contacts#create', as: :create_enjoy_contacts
           get 'contacts/sent' => 'contacts#sent', as: :enjoy_contacts_sent
         end
 

@@ -55,6 +55,9 @@ ru:
       enjoy/embeddede_gallery_image: Фото в фотогалерее
       enjoy/seo: SEO
       enjoy/sitemap_data: Карта сайта
+
+      enjoy/page_blockset: Блоки
+      enjoy/page_block: Блок
     attributes:
       user:
         email: E-mail
@@ -86,7 +89,9 @@ ru:
       enjoy/gallery:
       enjoy/gallery_image:
        gallery: Фотогалерея
-      enjoy/embeddede_gallery_image:
+      enjoy/embeddeded_gallery_image:
+      enjoy/page_blockset:
+        blocks: Блоки
     errors:
       models:
         contact_message:
