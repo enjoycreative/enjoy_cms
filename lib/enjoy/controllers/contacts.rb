@@ -5,11 +5,13 @@ module Enjoy
       def index
         @contact_message = model.new
         after_initialize
+        xhr_checker
       end
 
       def new
         @contact_message = model.new
         after_initialize
+        xhr_checker
       end
 
       def create
@@ -54,10 +56,12 @@ module Enjoy
       def redirect_after_done
         redirect_to :contacts_sent
       end
-      def after_initialize
+      def xhr_checker
         if request.xhr?
-          render partial: form_partial
+          render layout: false
         end
+      end
+      def after_initialize
       end
       def after_create
         # overrideable hook for updating message

@@ -81,6 +81,7 @@ ru:
         image: Картинка
         hidden: Скрытая
         menus: Меню
+        connectable: Связанный элемент
       enjoy/contact_message:
         name: Ваше имя
         email: Ваш е-мейл

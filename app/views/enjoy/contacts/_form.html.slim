@@ -1,4 +1,4 @@
-= simple_form_for @contact_message, url: enjoy_contacts_path do |f|
+= simple_form_for @contact_message, url: enjoy_contacts_path, html: {data: {remote: true }} do |f|
   = f.input :name
   = f.input :email
   = f.input :phone
