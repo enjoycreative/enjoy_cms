@@ -2,6 +2,26 @@
 
 ru:
   admin:
+    js:
+      true: Да
+      false: Нет
+      is_present: Существует
+      is_blank: Пустое
+      date: Дата ...
+      between_and_: Между ... и ...
+      today: Сегодня
+      yesterday: Вчера
+      this_week: На этой неделе
+      last_week: На прошлой неделе
+      number: Номер ...
+      contains: Содержит
+      is_exactly: В точности
+      starts_with: Начинается с
+      ends_with: Кончается на
+      too_many_objects: "Слишком много объектов, используйте фильтры и поиск"
+      no_objects: Ничего не найдено
+    loading: Загрузка...
+    toggle_navigation: Скрыть/Показать навигацию
     home:
       name: "Главная"
     pagination:

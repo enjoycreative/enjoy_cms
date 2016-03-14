@@ -21,6 +21,12 @@ module Enjoy
         before_validation do
           self.fullpath = "/pages/#{slug}" if self.fullpath.blank?
         end
+
+        before_save do
+          self.connectable_id = nil   if self.connectable_type.nil?
+          self.connectable_type = nil if self.connectable_id.nil?
+          self
+        end
       end
 
       def page_h1
@@ -62,7 +68,7 @@ module Enjoy
       end
 
       def regexp_prefix
-        ""
+        Enjoy.config.localize ? "(?:#{I18n.available_locales.map { |l| "\\/#{l}"}.join("|")})?" : ""
       end
 
       def clean_regexp

@@ -8,11 +8,16 @@ module Enjoy
             scopes [:by_date, :enabled, nil]
           end
 
-          field :enabled, :toggle
+          field :enabled, :toggle do
+            searchable false
+          end
           field :time do
+            searchable false
             sort_reverse true
           end
-          field :name
+          field :name do
+            searchable true
+          end
           field :connected_pages, :enjoy_connectable
           unless Enjoy.config.news_image_styles.nil?
             field :image, :jcrop do
@@ -21,13 +26,16 @@ module Enjoy
           end
           group :content do
             active false
-            field :excerpt, :enjoy_html
+            field :excerpt, :enjoy_html do
+              searchable true
+            end
             # field :excerpt_html, :ck_editor
             # field :excerpt_clear, :toggle
           end
           group :URL do
             active false
             field :slugs, :enum do
+              searchable true
               enum_method do
                 :slugs
               end
@@ -38,7 +46,9 @@ module Enjoy
                 true
               end
             end
-            field :text_slug
+            field :text_slug do
+              searchable true
+            end
           end
 
           list do

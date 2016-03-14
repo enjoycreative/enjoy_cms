@@ -1,1 +1,8 @@
-= form.text_area field.string_method, rows: 10, cols: 80, class: 'form-control'
+ruby:
+  _opts = {}
+  _opts[:rows] = 10
+  _opts[:cols] = 80
+  _opts[:class] = 'form-control'
+  _opts[:value] = field.formatted_value
+  _opts[:style] = "font-family: monospace"
+= form.text_area field.string_method, _opts

@@ -7,13 +7,23 @@ module Enjoy
           field :seoable do
             read_only true
           end
-          field :h1, :string
-          field :title, :string
-          field :keywords, :text
-          field :description, :text
+          field :h1, :string do
+            searchable true
+          end
+          field :title, :string do
+            searchable true
+          end
+          field :keywords, :text do
+            searchable true
+          end
+          field :description, :text do
+            searchable true
+          end
           field :robots, :string
 
-          field :og_title, :string
+          field :og_title, :string do
+            searchable true
+          end
 
           field :og_image, :jcrop do
             jcrop_options :og_image_jcrop_options

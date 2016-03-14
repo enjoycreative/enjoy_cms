@@ -5,12 +5,22 @@ module Enjoy
         Proc.new {
           # navigation_label 'CMS'
 
-          field :enabled, :toggle
-          field :partial, :toggle
-          field :name
-          field :file_path, :string
+          field :enabled, :toggle do
+            searchable false
+          end
+          field :partial, :toggle do
+            searchable false
+          end
+          field :name do
+            searchable true
+          end
+          field :file_path, :string do
+            searchable true
+          end
 
-          field :content, :enjoy_html
+          field :content, :enjoy_html do
+            searchable true
+          end
           # field :content_html, :ck_editor
           # field :content_clear, :toggle
 

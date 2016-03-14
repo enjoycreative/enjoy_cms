@@ -7,17 +7,30 @@ module Enjoy
           list do
             scopes [:sorted, :enabled, nil]
 
-            field :enabled,  :toggle
-            field :menus, :menu
-            field :name
-            field :connectable
+            field :enabled, :toggle do
+              searchable false
+            end
+            field :menus, :menu do
+              searchable :name
+            end
+            field :name do
+              searchable true
+            end
+            field :connectable do
+              searchable :name
+            end
             field :fullpath do
+              searchable true
               pretty_value do
                 bindings[:view].content_tag(:a, bindings[:object].fullpath, href: bindings[:object].fullpath)
               end
             end
-            field :redirect
-            field :slug
+            field :redirect do
+              searchable true
+            end
+            field :slug do
+              searchable true
+            end
           end
 
           edit do

@@ -5,11 +5,19 @@ module Enjoy
         Proc.new {
           # navigation_label 'CMS'
 
-          field :enabled, :toggle
-          field :text_slug
-          field :name
+          field :enabled, :toggle do
+            searchable false
+          end
+          field :text_slug do
+            searchable true
+          end
+          field :name do
+            searchable true
+          end
 
-          field :blocks
+          field :blocks do
+            searchable :name
+          end
 
           Enjoy::RailsAdminGroupPatch::enjoy_cms_group(self, fields)
 

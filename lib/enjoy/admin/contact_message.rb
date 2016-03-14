@@ -7,10 +7,18 @@ module Enjoy
           field :c_at do
             read_only true
           end
-          field :name
-          field :content, :text
-          field :email
-          field :phone
+          field :name do
+            searchable true
+          end
+          field :content, :text do
+            searchable true
+          end
+          field :email do
+            searchable true
+          end
+          field :phone do
+            searchable true
+          end
 
           Enjoy.config.contacts_fields.each_pair do |fn, ft|
             next if ft.nil?

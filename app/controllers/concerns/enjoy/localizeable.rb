@@ -9,7 +9,7 @@ module Enjoy::Localizeable
   end
   private
   def default_url_options(options={})
-    {locale: params[:locale]}
+    {locale: I18n.locale}
   end
   def nav_get_menu_items(type)
     pages = menu_class.find(type.to_s).pages.enabled
@@ -38,11 +38,16 @@ module Enjoy::Localizeable
     else
       _url = item.redirect.blank? ? item.fullpath : item.redirect
     end
-    (params[:locale].blank? ? "" : "/#{params[:locale]}") + _url
+    _localizable_regexp = Regexp.new("^(#{I18n.available_locales.map { |l| "\\/#{l}"}.join("|")})")
+    ((params[:locale].blank? or _url != _localizable_regexp) ? "" : "/#{params[:locale]}") + _url
   end
   def find_seo_extra(path)
     _localizable_regexp = Regexp.new("^(#{I18n.available_locales.map { |l| "\\/#{l}"}.join("|")})")
-    page_class.enabled.where(fullpath: path.sub(_localizable_regexp, "")).first
+    _path = path.sub(_localizable_regexp, "")
+    if _path[0] != '/'
+      _path = '/' + _path
+    end
+    page_class.enabled.where(fullpath: _path).first
   end
 
   def page_class_name

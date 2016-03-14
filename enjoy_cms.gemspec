@@ -29,7 +29,7 @@ Gem::Specification.new do |spec|
   spec.add_dependency 'devise'
   spec.add_dependency 'turbolinks'
   spec.add_dependency 'validates_email_format_of'
-  spec.add_dependency 'rails_admin'
+  spec.add_dependency 'rails_admin', '~> 0.8.1'
   spec.add_dependency 'rails_admin_nested_set'
   spec.add_dependency 'rails_admin_toggleable'
 

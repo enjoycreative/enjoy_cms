@@ -4,11 +4,16 @@ module Enjoy
       def self.config(fields = {})
         Proc.new {
           # navigation_label I18n.t('enjoy.gallery')
-          field :enabled, :toggle
+          field :enabled, :toggle do
+            searchable false
+          end
 
-          field :name, :string
+          field :name, :string do
+            searchable true
+          end
           group :URL do
             active false
+            searchable true
             field :slugs, :enum do
               enum_method do
                 :slugs

@@ -16,6 +16,7 @@ module Enjoy
     attr_accessor :news_excerpt
     attr_accessor :news_content_required
 
+    attr_accessor :main_index_layout
     attr_accessor :error_layout
     attr_accessor :menu_max_depth
 
@@ -41,6 +42,7 @@ module Enjoy
       @news_excerpt = 12
       @news_content_required = true
 
+      @main_index_layout = 'application'
       @error_layout = 'application'
       @menu_max_depth = 2
 

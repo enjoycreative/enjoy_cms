@@ -1,4 +1,5 @@
 require 'rails_admin/config/fields/types/text'
+require 'json'
 
 module RailsAdmin
   module Config
@@ -19,6 +20,18 @@ module RailsAdmin
 
           register_instance_option :partial do
             :enjoy_hash
+          end
+
+          register_instance_option :formatted_value do
+            begin
+              JSON.pretty_generate(JSON.parse(bindings[:object].send string_method))
+            rescue
+              bindings[:object].send string_method
+            end
+          end
+
+          register_instance_option :pretty_value do
+            ("<pre>" + JSON.pretty_generate(value) + "</pre>").html_safe
           end
         end
       end
