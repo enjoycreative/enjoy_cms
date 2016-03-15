@@ -39,7 +39,7 @@ module Enjoy::Localizeable
       _url = item.redirect.blank? ? item.fullpath : item.redirect
     end
     _localizable_regexp = Regexp.new("^(#{I18n.available_locales.map { |l| "\\/#{l}"}.join("|")})")
-    ((params[:locale].blank? or _url != _localizable_regexp) ? "" : "/#{params[:locale]}") + _url
+    ((params[:locale].blank? or _url =~ _localizable_regexp) ? "" : "/#{params[:locale]}") + _url
   end
   def find_seo_extra(path)
     _localizable_regexp = Regexp.new("^(#{I18n.available_locales.map { |l| "\\/#{l}"}.join("|")})")
