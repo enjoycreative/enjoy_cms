@@ -6,7 +6,7 @@ module Enjoy::Mappable
     if Enjoy.mongoid?
       include ::Geocoder::Model::Mongoid
       field :coordinates, type: Array
-      field :address, type: String
+      field :address, type: String, localize: Enjoy.configuration.localize
 
       field :map_address, type: String
       field :map_hint, type: String

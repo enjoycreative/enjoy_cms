@@ -8,7 +8,7 @@ if Enjoy.mongoid?
         clear_by_default = false unless clear_by_default == true
 
         field "#{name}_html", opts
-        field "#{name}_clear", type: Boolean, default: clear_by_default
+        field "#{name}_clear", type: Boolean, default: clear_by_default, localize: opts[:localize]
 
         class_eval <<-EVAL
           def #{name}
