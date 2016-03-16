@@ -51,7 +51,8 @@ module Enjoy
         true
       end
       def ajax_success
-        render json: {ok: true}
+        render partial: success_partial
+        # render json: {ok: true}
       end
       def redirect_after_done
         redirect_to :contacts_sent
@@ -68,6 +69,9 @@ module Enjoy
       end
       def form_partial
         "enjoy/contacts/form"
+      end
+      def success_partial
+        "enjoy/contacts/success"
       end
       def model
         Enjoy::ContactMessage
