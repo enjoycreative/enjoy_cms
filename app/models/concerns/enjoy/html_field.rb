@@ -7,14 +7,21 @@ if Enjoy.mongoid?
         clear_by_default = opts.delete(:clear_by_default)
         clear_by_default = false unless clear_by_default == true
 
-        field "#{name}_html", opts
+        _html_field_name = "#{name}_html"
+
+        field _html_field_name, opts
         field "#{name}_clear", type: Boolean, default: clear_by_default, localize: opts[:localize]
 
         class_eval <<-EVAL
           def #{name}
-            self.#{name}_html ||= ""
-            return self.#{name}_html unless self.#{name}_clear
-            Rails::Html::FullSanitizer.new.sanitize(self.#{name}_html.strip)
+            self.#{_html_field_name} ||= ""
+            return self.#{_html_field_name} unless self.#{name}_clear
+            clean_#{name}
+          end
+
+          def clean_#{name}
+            self.#{_html_field_name} ||= ""
+            Rails::Html::FullSanitizer.new.sanitize(self.#{_html_field_name}.strip)
           end
         EVAL
       end
