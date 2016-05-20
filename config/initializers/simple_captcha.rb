@@ -11,7 +11,7 @@ module SimpleCaptcha #:nodoc
           :error_messages   => options[:error_messages]
       }
 
-      render :partial => 'simple_captcha/simple_captcha', :locals => { :simple_captcha_options => defaults }
+      render :partial => 'enjoy/simple_captcha/simple_captcha', :locals => { :simple_captcha_options => defaults }
     end
   end
 end
@@ -19,9 +19,14 @@ end
 SimpleCaptcha.setup do |sc|
   sc.image_size = "200x50"
   sc.length = 4
-  sc.charset = "1234567890"
+  sc.charset = "0123456789"
 
-  sc.add_image_style("enjoy_cms_style", ["-alpha set", "-fill 'red'", "-background 'transparent'", "-size 200x50", "xc:transparent"])
+  sc.add_image_style("enjoy_cms_style", [
+    "-alpha set",
+    "-fill 'orange'",
+    "-background 'transparent'",
+    "-size 200x50", "xc:transparent"
+  ])
 
   sc.image_style = 'enjoy_cms_style'
 

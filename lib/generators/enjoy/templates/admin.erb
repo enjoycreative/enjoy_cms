@@ -40,32 +40,11 @@ RailsAdmin.config do |config|
     history_index
     history_show
 
-    nested_set do
-      visible do
-        ['Enjoy::Page', 'Enjoy::Gallery', 'Enjoy::GalleryImage'].include? bindings[:abstract_model].model_name
-      end
-    end
-
-    custom_show_in_app do
-      visible do
-        #temporary
-        false #['Enjoy::Page', 'Enjoy::News'].include? bindings[:abstract_model].model_name
-      end
-    end
-
-    sort_embedded do
-      visible do
-        ['Enjoy::PageBlockset'].include? bindings[:abstract_model].model_name
-      end
-    end
-
     toggle
-    toggle_menu  do
-      visible do
-        ['Enjoy::Page'].include? bindings[:abstract_model].model_name
-      end
-    end
-    sitemap
+    # toggle_menu # for Enjoy::Pages
+    # sitemap     # for Enjoy::Seo
+
+    Enjoy.rails_admin_config_for_actions(self)
   end
 
   config.main_app_name = ['<%= Rails.application.class.name.split('::')[0] %>', 'Админка']
@@ -74,7 +53,7 @@ RailsAdmin.config do |config|
   config.excluded_models << [
       'RailsAdmin::CustomShowInApp', 'HistoryTracker',
       'Ckeditor::Asset', 'Ckeditor::AttachmentFile', 'Ckeditor::Picture',
-      'Enjoy::EmbeddedGalleryImage', 'Enjoy::EmbeddedElement'
+      'Enjoy::EmbeddedElement'
   ]
   config.excluded_models.flatten!
 end

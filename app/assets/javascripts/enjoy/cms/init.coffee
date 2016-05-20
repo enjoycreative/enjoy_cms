@@ -1,0 +1,1 @@
+window.enjoy_cms ||= {}

@@ -8,7 +8,7 @@ module Enjoy::RailsAdminGroupPatch
           config.group _group[:name] do
             active (_group[:active] || false)
             _group[:fields].each_pair do |name, type|
-              if type.nil?
+              if type.blank?
                 field name
               else
                 if type.is_a?(Array)
@@ -20,6 +20,7 @@ module Enjoy::RailsAdminGroupPatch
             end
           end
         end
+
       else
         fields.each_pair do |name, type|
           if type.nil?

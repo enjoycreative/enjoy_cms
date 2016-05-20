@@ -15,8 +15,10 @@ module Enjoy
       include Enjoy::BooleanField
       include Enjoy::SortField
 
-      include SmartExcerpt
-      include SimpleCaptcha::ModelHelpers
+      if Enjoy.mongoid? and defined?(RailsAdminComments)
+        include RailsAdminComments::Commentable
+        include RailsAdminComments::ModelCommentable
+      end
 
       if Enjoy.mongoid? && defined?(Trackable)
         include Trackable

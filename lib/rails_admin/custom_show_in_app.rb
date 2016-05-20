@@ -14,19 +14,19 @@ module RailsAdmin
 
         register_instance_option :controller do
           Proc.new do
-            if @object.class.name == 'Enjoy::Page'
-              if @object.fullpath.blank?
-                redirect_to main_app.page_url(@object)
-              else
-                redirect_to @object.fullpath
-              end
-            elsif @object.class.name == 'Enjoy::News'
-              redirect_to main_app.news_url(@object)
-            elsif @object.class.name == 'Obj'
-              redirect_to main_app.object_url(@object.category, @object)
-            else
-              redirect_to main_app.url_for(@object)
-            end
+            # if @object.class.name == 'Enjoy::Page'
+            #   if @object.fullpath.blank?
+            #     redirect_to main_app.page_url(@object)
+            #   else
+            #     redirect_to @object.fullpath
+            #   end
+            # elsif @object.class.name == 'Enjoy::News'
+            #   redirect_to main_app.news_url(@object)
+            # elsif @object.class.name == 'Obj'
+            #   redirect_to main_app.object_url(@object.category, @object)
+            # else
+            #   redirect_to main_app.url_for(@object)
+            # end
           end
         end
 

@@ -45,19 +45,6 @@ ru:
   mongoid: &mongoid
     models:
       user: Пользователь
-      enjoy/menu: Меню
-      enjoy/page: Страница
-      enjoy/contact_message: Сообщение
-      enjoy/news: Новость
-
-      enjoy/gallery: Фотогалерея
-      enjoy/gallery_image: Фото в фотогалерее
-      enjoy/embeddede_gallery_image: Фото в фотогалерее
-      enjoy/seo: SEO
-      enjoy/sitemap_data: Карта сайта
-
-      enjoy/page_blockset: Блоки
-      enjoy/page_block: Блок
     attributes:
       user:
         email: E-mail
@@ -74,31 +61,7 @@ ru:
         first_name: Имя
         last_name: Фамилия
         phone: Телефон
-      enjoy/page:
-        fullpath: URL
-        regexp: Подсветка меню
-        redirect: Редирект
-        image: Картинка
-        hidden: Скрытая
-        menus: Меню
-        connectable: Связанный элемент
-      enjoy/contact_message:
-        name: Ваше имя
-        email: Ваш е-мейл
-        phone: Ваш телефон
-        content: Ваше сообщение
-      enjoy/gallery:
-      enjoy/gallery_image:
-       gallery: Фотогалерея
-      enjoy/embeddeded_gallery_image:
-      enjoy/page_blockset:
-        blocks: Блоки
-    errors:
-      models:
-        contact_message:
-          attributes:
-            email:
-              invalid_email_address: "^Неверный e-mail"
+        
   activerecord:
     <<: *mongoid
 

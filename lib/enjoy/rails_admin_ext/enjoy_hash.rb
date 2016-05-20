@@ -54,8 +54,6 @@ module RailsAdmin
 
           register_instance_option :formatted_value do
             if localized?
-              puts bindings[:object].send((hash_method.to_s + '_translations').to_sym)
-              puts '__'
               _val = bindings[:object].send((hash_method.to_s + '_translations').to_sym)
               _val.each_pair { |l, _hash|
                 begin

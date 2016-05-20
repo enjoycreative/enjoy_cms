@@ -19,10 +19,10 @@ gem 'rails', '4.2.4' #'~> 5.0.0.beta3'
 
 gem 'sass'
 gem 'sass-rails'
-gem 'compass-rails'
 gem 'compass'
+gem 'compass-rails'
 
-#{if mongoid then "gem 'enjoy_cms_mongoid'" else "gem 'enjoy_cms_activerecord'" end}, '~> 0.3.2'
+#{if mongoid then "gem 'enjoy_cms_mongoid'" else "gem 'enjoy_cms_activerecord'" end}, path: '/home/ack/www/enjoy_cms' #'~> 0.4.0.beta1'
 
 gem 'devise'
 
@@ -30,7 +30,7 @@ gem 'slim-rails'
 gem 'rs_russian'
 gem 'cancancan'
 
-gem 'cloner'
+# gem 'cloner'
 gem 'unicorn'
 gem 'x-real-ip'
 
@@ -43,21 +43,22 @@ group :development do
   gem 'pry-rails'
   gem 'spring'
 
-  gem 'capistrano', require: false
+  # gem 'capistrano', require: false
+  #
+  # gem 'rvm1-capistrano3', require: false
+  # gem 'glebtv-capistrano-unicorn', require: false
+  # gem 'capistrano-bundler', require: false
+  # gem 'capistrano-rails', require: false
 
-  gem 'rvm1-capistrano3', require: false
-  gem 'glebtv-capistrano-unicorn', require: false
-  gem 'capistrano-bundler', require: false
-  gem 'capistrano-rails', require: false
-
-  gem 'hipchat'
+  # gem 'hipchat'
   # gem 'coffee-rails-source-maps'
   # gem 'compass-rails-source-maps'
 
-  gem 'favicon_maker', '0.3'
-  gem 'favicon_maker_rails'
+  gem 'ack_favicon_maker_rails', github: 'ack43/favicon_maker_rails'
 
-  gem 'rails_email_preview', '~> 0.2.29'
+  #gem 'rails_email_preview', '~> 1.0.3'
+
+  gem 'image_optim_pack'
 end
 
 group :test do
@@ -69,25 +70,16 @@ group :test do
   gem 'factory_girl_rails'
 end
 
-#{if mongoid then "gem 'mongo_session_store-rails4'" else "" end}
+#{if mongoid then "#gem 'mongo_session_store-rails4'" else "#gem 'activerecord-session_store'" end}
 
 gem 'slim'
 gem 'sprockets'
-
-gem 'sitemap_generator'
-gem 'rails_admin_sitemap'
 
 gem 'uglifier'
 
 group :production do
   gem "god"
 end
-
-
-gem 'image_optim'
-gem 'image_optim_pack'
-gem 'paperclip-optimizer'
-
 TEXT
 end
 
@@ -124,100 +116,26 @@ TEXT
 end
 end
 
+remove_file 'config/initializers/session_store.rb'
 if mongoid
-  remove_file 'config/initializers/session_store.rb'
-  create_file 'config/initializers/session_store.rb' do  <<-TEXT
+create_file 'config/initializers/session_store.rb' do  <<-TEXT
 # Be sure to restart your server when you modify this file.
 
 #Rails.application.config.session_store :cookie_store, key: '_#{app_name.tableize.singularize}_session'
 Rails.application.config.session_store :mongoid_store
 
-  TEXT
-  end
-end
-
-remove_file 'config/initializers/paperclip_optimizer.rb'
-create_file 'config/initializers/paperclip_optimizer.rb' do <<-TEXT
-# Set global optimisation options for all Paperclip models
-
-# By default, image_optim enables all the compression binaries it supports and
-# requires them to be present on your system, failing if one is actually missing.
-
-# We disable everything by default and ignore missing ones with `skip_missing_workers`.
-# This way, should a new version add support for a library we do not yet disable here,
-# things won't suddenly break.
-
-Paperclip::PaperclipOptimizer.default_options = {
-  skip_missing_workers: true,
-  advpng: true,
-  gifsicle: true,
-  jhead: true,
-  jpegoptim: true,
-  jpegrecompress: true,
-  jpegtran: true,
-  optipng: true,
-  pngcrush: true,
-  pngout: false,
-  pngquant: true,
-  svgo: false,
-
-  nice: 5,
-  verbose: true
-}
-
-# All available image_optim options. See https://github.com/toy/image_optim for more information
-
-# Paperclip::PaperclipOptimizer.default_options = {
-#   skip_missing_workers: false, # Skip workers with missing or problematic binaries (defaults to false)
-#   nice: 10,             # Nice level (defaults to 10)
-#   threads: 1,           # Number of threads or disable (defaults to number of processors)
-#   verbose: false,       # Verbose output (defaults to false)
-#   pack: nil,            # Require image_optim_pack or disable it, by default image_optim_pack will be used if available,
-#                         # will turn on :skip-missing-workers unless explicitly disabled (defaults to nil)
-#   allow_lossy: false,   # Allow lossy workers and optimizations (defaults to false)
-#   advpng: {
-#     leve: 4             # Compression level: 0 - don't compress, 1 - fast, 2 - normal, 3 - extra, 4 - extreme (defaults to 4)
-#   },
-#   gifsicle: {
-#     interlace: true,    # Interlace: true - interlace on, false - interlace off, nil - as is in original image
-#                         # (defaults to running two instances, one with interlace off and one with on)
-#     level: 3,           # Compression level: 1 - light and fast, 2 - normal, 3 - heavy (slower) (defaults to 3)
-#     careful: false      # Avoid bugs with some software (defaults to false)
-#   },
-#   jhead: true,          # no options
-#   jpegoptim: {
-#     strip: :all,        # List of extra markers to strip: :comments, :exif, :iptc, :icc or :all (defaults to :all)
-#     max_quality: 100    # Maximum image quality factor 0..100 (defaults to 100)
-#   },
-#   jpegrecompress: {
-#     quality: 3          # JPEG quality preset: 0 - low, 1 - medium, 2 - high, 3 - veryhigh (defaults to 3)
-#   },
-#   jpegtran: {
-#     copy_chunks: false, # Copy all chunks (defaults to false)
-#     progressive: true,  # Create progressive JPEG file (defaults to true)
-#     jpegrescan: false   # Use jpegtran through jpegrescan, ignore progressive option (defaults to false)
-#   },
-#   optipng: {
-#     level: 6,           # Optimization level preset: 0 is least, 7 is best (defaults to 6)
-#     interlace: false    # Interlace: true - interlace on, false - interlace off, nil - as is in original image (defaults to false)
-#   },
-#   pngcrush: {
-#     chunks: :alla,      # List of chunks to remove or :alla - all except tRNS/transparency or
-#                         # :allb - all except tRNS and gAMA/gamma (defaults to :alla)
-#     fix: false,         # Fix otherwise fatal conditions such as bad CRCs (defaults to false)
-#     brute: false        # Brute force try all methods, very time-consuming and generally not worthwhile (defaults to false)
-#   },
-#   pngout: {
-#     copy_chunks: false, # Copy optional chunks (defaults to false)
-#     strategy: 0         # Strategy: 0 - xtreme, 1 - intense, 2 - longest Match, 3 - huffman Only, 4 - uncompressed (defaults to 0)
-#   },
-#   pngquant: {
-#     quality: 100..100,  # min..max - don't save below min, use less colors below max (both in range 0..100; in yaml - !ruby/range 0..100) (defaults to 100..100)
-#     speed: 3            # speed/quality trade-off: 1 - slow, 3 - default, 11 - fast & rough (defaults to 3)
-#   },
-#   svgo: true            # no options
-# }
 TEXT
+end
+else
+generate 'active_record_store:session_migration'
+create_file 'config/initializers/session_store.rb' do  <<-TEXT
+# Be sure to restart your server when you modify this file.
+
+#Rails.application.config.session_store :cookie_store, key: '_#{app_name.tableize.singularize}_session'
+Rails.application.config.session_store :active_record_store
+
+TEXT
+end
 end
 
 remove_file 'app/controllers/application_controller.rb'
@@ -240,18 +158,6 @@ create_file '.ruby-version', "2.2.3\n"
 create_file '.ruby-gemset', "#{app_name}\n"
 
 run 'bundle install --without production'
-
-# generate 'rails_email_preview:install'
-remove_file 'app/mailer_previews/contact_mailer_preview.rb'
-create_file 'app/mailer_previews/contact_mailer_preview.rb' do <<-TEXT
-class ContactMailerPreview
-  def new_message_email
-    Enjoy::ContactMailer.new_message_email(ContactMessage.all.to_a.sample)
-  end
-end
-TEXT
-end
-
 
 if mongoid
 create_file 'config/mongoid.yml' do <<-TEXT
@@ -291,12 +197,90 @@ end
 say "Please create a PostgreSQL user #{app_name.downcase} with password #{app_name.downcase} and a database #{app_name.downcase}_development owned by him for development NOW.", :red
 ask("Press <enter> when done.", true)
 end
+remove_file 'config/application.rb'
+create_file 'config/application.rb' do <<-TEXT
+require File.expand_path('../boot', __FILE__)
+
+# Pick the frameworks you want:
+require "active_model/railtie"
+#{'#' if mongoid}require "active_record/railtie"
+require "action_controller/railtie"
+# require "action_mailer/railtie" # mailer is off by default
+require "action_mailer/railtie"
+require "action_view/railtie"
+require "sprockets/railtie"
+# require "rails/test_unit/railtie"
+
+# Require the gems listed in Gemfile, including any gems
+# you've limited to :test, :development, or :production.
+Bundler.require(*Rails.groups)
+
+module #{app_name.camelize}
+  class Application < Rails::Application
+    config.generators do |g|
+      g.test_framework :rspec
+      g.view_specs false
+      g.helper_specs false
+      g.feature_specs false
+      g.template_engine :slim
+      g.stylesheets false
+      g.javascripts false
+      g.helper false
+      g.fixture_replacement :factory_girl, :dir => 'spec/factories'
+    end
+
+    config.i18n.locale = :ru
+    config.i18n.default_locale = :ru
+    config.i18n.available_locales = [:ru, :en]
+    config.i18n.enforce_available_locales = true
+    #{'config.active_record.schema_format = :sql' unless mongoid}
+
+    #{'config.autoload_paths += %W(#{config.root}/extra)'}
+    #{'config.eager_load_paths += %W(#{config.root}/extra)'}
+
+    config.time_zone = 'Europe/Moscow'
+    config.assets.paths << Rails.root.join("app", "assets", "fonts")
+  end
+end
+TEXT
+end
+
+
+generate "simple_form:install"
+
+# generate 'paperclip_optimizer:install'
+# remove_file 'config/initializers/paperclip_optimizer.rb'
+# generate "enjoy:paperclip_optimizer"
+
+# generate 'rails_email_preview:install'
+# remove_file 'app/mailer_previews/contact_mailer_preview.rb'
+# create_file 'app/mailer_previews/contact_mailer_preview.rb' do <<-TEXT
+# class ContactMailerPreview
+#   def new_message_email
+#     Enjoy::Feedback::ContactMailer.new_message_email(Enjoy::Feedback::ContactMessage.all.to_a.sample)
+#   end
+# end
+# TEXT
+# end
 
 unless mongoid
   generate 'simple_captcha'
 end
 
 generate "devise:install"
+inject_into_file 'config/initializers/devise.rb', before: /^end/ do <<-TEXT
+
+Rails.application.config.to_prepare do
+  Devise::SessionsController.layout       "enjoy/devise/sessions"
+  Devise::RegistrationsController.layout  "enjoy/devise/registrations"
+  Devise::ConfirmationsController.layout  "enjoy/devise/confirmations"
+  Devise::UnlocksController.layout        "enjoy/devise/unlocks"
+  Devise::PasswordsController.layout      "enjoy/devise/passwords"
+end
+TEXT
+end
+
+
 generate "devise", "User"
 remove_file "config/locales/devise.en.yml"
 remove_file "config/locales/en.yml"
@@ -338,48 +322,65 @@ inject_into_file 'app/models/user.rb', before: /^end/ do <<-TEXT
       field :login
       field :roles do
         pretty_value do
-          bindings[:view].content_tag(:p, bindings[:object].roles.join(", "))
+          render_object = (bindings[:controller] || bindings[:view])
+          render_object.content_tag(:p, bindings[:object].roles.join(", "))
         end
       end
     end
 
     edit do
-      field :email, :string do
-        visible do
-          bindings[:controller].current_user.admin? or (bindings[:controller].current_user.manager? and bindings[:controller].current_user == bindings[:object])
+      group :login do
+        active false
+        field :email, :string do
+          visible do
+            render_object = (bindings[:controller] || bindings[:view])
+            render_object.current_user.admin? or (render_object.current_user.manager? and render_object.current_user == bindings[:object])
+          end
         end
-      end
-      field :name, :string
-      field :login, :string do
-        visible do
-          bindings[:controller].current_user.admin?
-        end
-      end
-      field :roles, :enum do
-        enum do
-          AVAILABLE_ROLES
-        end
-
-        multiple do
-          true
-        end
-
-        visible do
-          bindings[:controller].current_user.admin?
+        field :name, :string
+        field :login, :string do
+          visible do
+            render_object = (bindings[:controller] || bindings[:view])
+            render_object.current_user.admin?
+          end
         end
       end
 
-      field :password do
-        visible do
-          bindings[:controller].current_user.admin? or bindings[:controller].current_user == bindings[:object]
+      group :roles do
+        active false
+        field :roles, :enum do
+          enum do
+            AVAILABLE_ROLES
+          end
+
+          multiple do
+            true
+          end
+
+          visible do
+            render_object = (bindings[:controller] || bindings[:view])
+            render_object.current_user.admin?
+          end
         end
       end
-      field :password_confirmation do
-        visible do
-          bindings[:controller].current_user.admin? or bindings[:controller].current_user == bindings[:object]
+
+      group :password do
+        active false
+        field :password do
+          visible do
+            render_object = (bindings[:controller] || bindings[:view])
+            render_object.current_user.admin? or render_object.current_user == bindings[:object]
+          end
+        end
+        field :password_confirmation do
+          visible do
+            render_object = (bindings[:controller] || bindings[:view])
+            render_object.current_user.admin? or render_object.current_user == bindings[:object]
+          end
         end
       end
     end
+
   end
 TEXT
 end
@@ -399,12 +400,12 @@ end
 generate "enjoy:admin"
 generate "enjoy:ability"
 generate "enjoy:layout"
+remove_file 'app/views/layouts/application.html.erb'
+
 
 unless mongoid
   rake "db:migrate"
 end
-
-generate "simple_form:install"
 
 generate "rspec:install"
 
@@ -433,404 +434,36 @@ ru:
 TEXT
 end
 
-remove_file 'db/seeds.rb'
-
-require 'securerandom'
-admin_pw = SecureRandom.urlsafe_base64(6)
-create_file 'db/seeds.rb' do <<-TEXT
-admin_pw = "#{admin_pw}"
-User.destroy_all
-User.create!(email: 'admin@#{app_name.dasherize.downcase}.ru', password: admin_pw, password_confirmation: admin_pw, roles: ["admin"])
-TEXT
-end
-
-create_file 'config/initializers/rack.rb' do <<-TEXT
-if Rails.env.development?
-  module Rack
-    class CommonLogger
-      alias_method :log_without_assets, :log
-      #{'ASSETS_PREFIX = "/#{Rails.application.config.assets.prefix[/\A\/?(.*?)\/?\z/, 1]}/"'}
-      def log(env, status, header, began_at)
-        unless env['REQUEST_PATH'].start_with?(ASSETS_PREFIX) || env['REQUEST_PATH'].start_with?('/uploads')  || env['REQUEST_PATH'].start_with?('/system')
-          log_without_assets(env, status, header, began_at)
-        end
-      end
-    end
-  end
-end
-
-Rack::Utils.multipart_part_limit = 0
-TEXT
-end
-
-create_file 'app/assets/stylesheets/rails_admin/custom/theming.sass' do <<-TEXT
-.navbar-brand
-  margin-left: 0 !important
-
-.input-small
-  width: 150px
-
-.container-fluid
-  input[type=text]
-    width: 380px !important
-  input.ra-filtering-select-input[type=text]
-    width: 180px !important
-  input.hasDatepicker
-    width: 180px !important
-
-.sidebar-nav
-  a
-    padding: 6px 10px !important
-  .dropdown-header
-    padding: 10px 0px 3px 9px
-
-.label-important
-  background-color: #d9534f
-.alert-notice
-  color: #5bc0de
-
-.page-header
-  display: none
-.breadcrumb
-  margin-top: 20px
-
-.control-group
-  clear: both
-
-.container-fluid
-  padding-left: 0
-  > .row
-    margin: 0
-
-.last.links
-  a
-    display: inline-block
-    padding: 3px
-    font-size: 20px
-
-.remove_nested_fields
-  opacity: 1 !important
-
-body.rails_admin .modal
-  margin: 0 auto !important
-  .modal-dialog
-    width: 990px !important
-
-input[type=checkbox]
-  width: 30px !important
-
-body.rails_admin
-
-  .root_links
-
-    > li
-      display: inline-block
-
-  .dropdown-header
-    border-top: 2px solid #777777
-    text-align: right
-
-    &:first-child
-      border-top: none
-
-.bank_row .logo_field, #edit_bank img
-  background: #ccc !important
-
-.ui-menu-item
-  border: 1px solid transparent
-
-.content > .alert
-  margin-top: 20px
-
-.badge-important
-  background: red
-.badge-success
-  background: green
-
-.sidebar-nav i
-  margin-right: 5px
-
-body.rails_admin .table td.paperclip_type, body.rails_admin .table td.carrierwave_type, body.rails_admin .table td.jcrop_type
-  img
-    max-width: 150px
-    max-height: 100px
-TEXT
-end
-
-remove_file 'public/robots.txt'
-create_file 'public/robots.txt' do <<-TEXT
-User-Agent: *
-Allow: /
-Disallow: /admin
-Sitemap: /sitemap.xml.gz
-TEXT
-end
+# remove_file 'db/seeds.rb'
+#
+# require 'securerandom'
+# admin_pw = SecureRandom.urlsafe_base64(6)
+# create_file 'db/seeds.rb' do <<-TEXT
+# admin_pw = "#{admin_pw}"
+# User.destroy_all
+# User.create!(email: 'admin@#{app_name.dasherize.downcase}.ru', password: admin_pw, password_confirmation: admin_pw, roles: ["admin"])
+# TEXT
+# end
 
 
-remove_file 'app/views/layouts/application.html.erb'
+generate "enjoy:rack"
 
-gsub_file 'app/views/layouts/application.html.slim', "= favicon_link_tag '/favicon.ico'", "= render partial: 'blocks/favicon' #= favicon_link_tag '/favicon.ico'"
-
-
-remove_file 'config/application.rb'
-create_file 'config/application.rb' do <<-TEXT
-require File.expand_path('../boot', __FILE__)
-
-# Pick the frameworks you want:
-require "active_model/railtie"
-#{'#' if mongoid}require "active_record/railtie"
-require "action_controller/railtie"
-require "action_mailer/railtie"
-require "action_view/railtie"
-require "sprockets/railtie"
-# require "rails/test_unit/railtie"
-
-# Require the gems listed in Gemfile, including any gems
-# you've limited to :test, :development, or :production.
-Bundler.require(*Rails.groups)
-
-module #{app_name.camelize}
-  class Application < Rails::Application
-    config.generators do |g|
-      g.test_framework :rspec
-      g.view_specs false
-      g.helper_specs false
-      g.feature_specs false
-      g.template_engine :slim
-      g.stylesheets false
-      g.javascripts false
-      g.helper false
-      g.fixture_replacement :factory_girl, :dir => 'spec/factories'
-    end
-
-    config.i18n.locale = :ru
-    config.i18n.default_locale = :ru
-    config.i18n.available_locales = [:ru, :en]
-    config.i18n.enforce_available_locales = true
-    #{'config.active_record.schema_format = :sql' unless mongoid}
-
-    #{'config.autoload_paths += %W(#{config.root}/extra)'}
-    #{'config.eager_load_paths += %W(#{config.root}/extra)'}
-
-    config.time_zone = 'Europe/Moscow'
-    config.assets.paths << Rails.root.join("app", "assets", "fonts")
-  end
-end
-
-TEXT
-end
 
 remove_file 'app/assets/stylesheets/application.css'
-remove_file 'app/assets/stylesheets/application.css.sass'
-create_file 'app/assets/stylesheets/application.sass' do <<-TEXT
-@import 'compass'
-@import 'enjoy_cms'
-
-#wrapper
-  width: 960px
-  margin: 0 auto
-  #sidebar
-    float: left
-    width: 200px
-  #content
-    float: right
-    width: 750px
-
-@import "compass/layout/sticky-footer"
-+sticky-footer(50px)
-TEXT
-end
-
 remove_file 'app/assets/javascripts/application.js'
-remove_file 'app/assets/javascripts/application.js.coffee'
-create_file 'app/assets/javascripts/application.coffee' do <<-TEXT
-#= require enjoy_cms
-TEXT
-end
+generate "enjoy:assets", app_name
+
+remove_file 'public/robots.txt'
+generate "enjoy:robots"
 
 
 #god+unicorn
-remove_file 'config/unicorn.rb'
-create_file 'config/unicorn.rb' do <<-TEXT
-rails_root = "/home/#{app_name.downcase}/www/#{app_name.downcase}"
-
-worker_processes 2
-working_directory rails_root
-
-# This loads the application in the master process before forking
-# worker processes
-# Read more about it here:
-# http://unicorn.bogomips.org/Unicorn/Configurator.html
-preload_app true
-
-timeout 30
-
-# This is where we specify the socket.
-# We will point the upstream Nginx module to this socket later on
-listen "\#{rails_root}/tmp/sockets/unicorn.sock", :backlog => 64
-
-pid "\#{rails_root}/tmp/pids/unicorn.pid"
-
-# Set the path of the log files inside the log folder of the testapp
-stderr_path "\#{rails_root}/log/unicorn.stderr.log"
-stdout_path "\#{rails_root}/log/unicorn.stdout.log"
-
-
-before_fork do |server, worker|
-  server.logger.info("worker=\#{worker.nr} spawning in \#{Dir.pwd}")
-
-  # graceful shutdown.
-  old_pid_file = "\#{rails_root}/tmp/pids/unicorn.pid.oldbin"
-  if File.exists?(old_pid_file) && server.pid != old_pid_file
-    begin
-      old_pid = File.read(old_pid_file).to_i
-      server.logger.info("sending QUIT to \#{old_pid}")
-      # we're killing old unicorn master right there
-      Process.kill("QUIT", old_pid)
-    rescue Errno::ENOENT, Errno::ESRCH
-      # someone else did our job for us
-    end
-  end
-end
-
-## no need for noSQL
-# before_fork do |server, worker|
-# # This option works in together with preload_app true setting
-# # What is does is prevent the master process from holding
-# # the database connection
-#   defined?(ActiveRecord::Base) and
-#       ActiveRecord::Base.connection.disconnect!
-# end
-#
-# after_fork do |server, worker|
-# # Here we are establishing the connection after forking worker
-# # processes
-#   defined?(ActiveRecord::Base) and
-#       ActiveRecord::Base.establish_connection
-# end
-TEXT
-end
-
-remove_file 'config/unicorn.god'
-create_file 'config/unicorn.god' do <<-TEXT
-# http://unicorn.bogomips.org/SIGNALS.html
-
-rails_env = ENV['RAILS_ENV'] || 'production'
-rails_root = ENV['RAILS_ROOT'] || File.dirname(File.dirname(__FILE__))
-
-God.watch do |w|
-  w.name = "unicorn_qiwi_middleware"
-  w.interval = 30.seconds # default
-
-  # unicorn needs to be run from the rails root
-  w.start = "cd \#{rails_root} && unicorn -c \#{rails_root}/config/unicorn.rb -E \#{rails_env} -D"
-
-  # QUIT gracefully shuts down workers
-  w.stop = "kill -KILL `cat \#{rails_root}/tmp/pids/unicorn.pid`"
-
-  # USR2 causes the master to re-create itself and spawn a new worker pool
-  w.restart = "kill -USR2 `cat \#{rails_root}/tmp/pids/unicorn.pid`"# && cd \#{rails_root} && unicorn -c \#{rails_root}/config/unicorn.rb -E \#{rails_env} -D"
-
-  w.start_grace = 10.seconds
-  w.restart_grace = 10.seconds
-  w.pid_file = "\#{rails_root}/tmp/pids/unicorn.pid"
-
-  w.uid = 'ack'
-  w.gid = 'ack'
-
-  w.behavior(:clean_pid_file)
-
-  w.start_if do |start|
-    start.condition(:process_running) do |c|
-      c.interval = 5.seconds
-      c.running = false
-    end
-  end
-
-  w.restart_if do |restart|
-    restart.condition(:memory_usage) do |c|
-      c.above = 150.megabytes
-      c.times = [3, 5] # 3 out of 5 intervals
-    end
-
-    restart.condition(:cpu_usage) do |c|
-      c.above = 50.percent
-      c.times = 5
-    end
-  end
-
-  # lifecycle
-  w.lifecycle do |on|
-    on.condition(:flapping) do |c|
-      c.to_state = [:start, :restart]
-      c.times = 5
-      c.within = 5.minute
-      c.transition = :unmonitored
-      c.retry_in = 10.minutes
-      c.retry_times = 5
-      c.retry_within = 2.hours
-    end
-  end
-end
-TEXT
-end
+generate "enjoy:unicorn_god", app_name
 
 
 
 #scripts
-remove_file 'scripts/assets_precompile.sh'
-create_file 'scripts/assets_precompile.sh' do <<-TEXT
-#!/bin/sh
-
-RAILS_ENV=production rake assets:precompile
-TEXT
-end
-
-remove_file 'scripts/bundle_production.sh'
-create_file 'scripts/bundle_production.sh' do <<-TEXT
-#!/bin/sh
-
-rm Gemfile.lock
-bundle install --without development test
-TEXT
-end
-
-remove_file 'scripts/full_assets_precompile.sh'
-create_file 'scripts/full_assets_precompile.sh' do <<-TEXT
-#!/bin/sh
-
-RAILS_ENV=production rake assets:precompile
-TEXT
-end
-
-remove_file 'scripts/restart_thru_kill.sh'
-create_file 'scripts/restart_thru_kill.sh' do <<-TEXT
-#!/bin/sh
-
-kill $(cat ./tmp/pids/unicorn.pid)
-TEXT
-end
-
-remove_file 'scripts/send_usr2.sh'
-create_file 'scripts/send_usr2.sh' do <<-TEXT
-#!/bin/sh
-
-kill -USR2 $(cat ./tmp/pids/unicorn.pid)
-TEXT
-end
-
-remove_file 'scripts/send_hup.sh'
-create_file 'scripts/send_hup.sh' do <<-TEXT
-#!/bin/sh
-
-kill -HUP $(cat ./tmp/pids/unicorn.pid)
-TEXT
-end
-
-inject_into_file 'config/initializers/assets.rb', before: /\z/ do <<-TEXT
-Rails.application.config.assets.precompile += %w( ckeditor/* )
-TEXT
-end
+generate "enjoy:scripts", app_name
 
 
 

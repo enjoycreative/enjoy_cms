@@ -2,10 +2,12 @@ module Enjoy::Controller
   extend ActiveSupport::Concern
   included do
     include Enjoy::Errors
-    include Enjoy::SeoPages
-    include Enjoy::NavMenu
     include Enjoy::Fancybox
-    include Enjoy::Blocksetable
+    if defined?(Enjoy::Pages)
+      include Enjoy::Pages::SeoPages
+      include Enjoy::Pages::NavMenu
+      include Enjoy::Pages::Blocksetable
+    end
     protect_from_forgery with: :exception
     helper_method :page_title
     helper_method :hide_ym_ga

@@ -4,6 +4,7 @@ unless defined?(Enjoy) && Enjoy.respond_to?(:orm) && [:active_record, :mongoid].
 end
 
 require 'enjoy/version'
+require 'enjoy/configuration'
 require 'devise'
 require 'enjoy/routes'
 
@@ -12,37 +13,32 @@ require 'enjoy/simple_form_patch'
 
 require 'geocoder'
 
-require 'glebtv-simple_captcha'
-require 'validates_email_format_of'
-require 'smart_excerpt'
+require 'simple_captcha'
+# require 'validates_email_format_of'
 require 'filename_to_slug'
 
 require 'rails_admin'
+require 'enjoy/rails_admin_ext/config'
 
-require 'enjoy/rails_admin_ext/enjoy_connectable'
 require 'enjoy/rails_admin_ext/enjoy_hash'
 require 'enjoy/rails_admin_ext/enjoy_html'
+require 'enjoy/rails_admin_ext/enjoy_slugs'
 require 'enjoy/rails_admin_ext/group_patch'
-require 'enjoy/rails_admin_ext/menu'
 
 require 'rails_admin_nested_set'
 require 'rails_admin_toggleable'
-require 'rails_admin_settings'
-require 'rails_admin_sort_embedded'
 
-require 'x-real-ip'
+require 'rails_admin_settings'
+require 'enjoy/rails_admin_settings_patch'
+
+# require 'x-real-ip'
 
 require 'ckeditor'
 
-require 'sitemap_generator'
-require 'kaminari'
-require 'addressable/uri'
+# require 'kaminari'
+# require 'addressable/uri'
 require 'turbolinks'
-require 'simple-navigation'
-require 'ack_rails_admin_jcrop'
 
-require 'enjoy/configuration'
-require 'enjoy/elastic_search'
 require 'enjoy/model'
 require 'enjoy/engine'
 require 'enjoy/controller'
@@ -62,6 +58,20 @@ module Enjoy
     def orm_specific(name)
       "#{model_namespace}::#{name}".constantize
     end
+
+    def clear_history_from_empty_objects
+      ::HistoryTracker.all.map do |h|
+        begin
+          begin
+            h.delete if h.trackable.nil?
+          rescue
+            h.delete
+          end
+        rescue
+        end
+      end
+    end
+
   end
 
   autoload :Migration, 'enjoy/migration'
@@ -72,73 +82,73 @@ module Enjoy
 
   autoload :Admin,  'enjoy/admin'
   module Admin
-    autoload :SitemapData,  'enjoy/admin/sitemap_data'
-    autoload :Seo,  'enjoy/admin/seo'
-    autoload :Menu, 'enjoy/admin/menu'
-    autoload :Page, 'enjoy/admin/page'
-    autoload :News, 'enjoy/admin/news'
-    autoload :ContactMessage, 'enjoy/admin/contact_message'
+    # autoload :SitemapData,  'enjoy/admin/sitemap_data'
+    # autoload :Seo,  'enjoy/admin/seo'
+    # autoload :Menu, 'enjoy/admin/menu'
+    # autoload :Page, 'enjoy/admin/page'
+    # autoload :News, 'enjoy/admin/news'
+    # autoload :ContactMessage, 'enjoy/admin/contact_message'
 
     autoload :EmbeddedElement,      'enjoy/admin/embedded_element'
 
-    autoload :EmbeddedGalleryImage, 'enjoy/admin/embedded_gallery_image'
-    autoload :GalleryImage,         'enjoy/admin/gallery_image'
-    autoload :Gallery,              'enjoy/admin/gallery'
-
-    autoload :PageBlock,            'enjoy/admin/page_block'
-    autoload :PageBlockset,         'enjoy/admin/page_blockset'
+    # autoload :EmbeddedGalleryImage, 'enjoy/admin/embedded_gallery_image'
+    # autoload :GalleryImage,         'enjoy/admin/gallery_image'
+    # autoload :Gallery,              'enjoy/admin/gallery'
+    #
+    # autoload :PageBlock,            'enjoy/admin/page_block'
+    # autoload :PageBlockset,         'enjoy/admin/page_blockset'
   end
 
   module Models
-    autoload :SitemapData,  'enjoy/models/sitemap_data'
-    autoload :Seo,  'enjoy/models/seo'
-    autoload :Menu, 'enjoy/models/menu'
-    autoload :Page, 'enjoy/models/page'
-    autoload :News, 'enjoy/models/news'
-    autoload :ContactMessage, 'enjoy/models/contact_message'
+    # autoload :SitemapData,  'enjoy/models/sitemap_data'
+    # autoload :Seo,  'enjoy/models/seo'
+    # autoload :Menu, 'enjoy/models/menu'
+    # autoload :Page, 'enjoy/models/page'
+    # autoload :News, 'enjoy/models/news'
+    # autoload :ContactMessage, 'enjoy/models/contact_message'
 
     autoload :EmbeddedElement,      'enjoy/models/embedded_element'
 
-    autoload :EmbeddedGalleryImage, 'enjoy/models/embedded_gallery_image'
-    autoload :GalleryImage,         'enjoy/models/gallery_image'
-    autoload :Gallery,              'enjoy/models/gallery'
-
-    autoload :PageBlock,             'enjoy/models/page_block'
-    autoload :PageBlockset,          'enjoy/models/page_blockset'
+    # autoload :EmbeddedGalleryImage, 'enjoy/models/embedded_gallery_image'
+    # autoload :GalleryImage,         'enjoy/models/gallery_image'
+    # autoload :Gallery,              'enjoy/models/gallery'
+    #
+    # autoload :PageBlock,             'enjoy/models/page_block'
+    # autoload :PageBlockset,          'enjoy/models/page_blockset'
 
     module Mongoid
-      autoload :SitemapData,  'enjoy/models/mongoid/sitemap_data'
-      autoload :Seo,  'enjoy/models/mongoid/seo'
-      autoload :Menu, 'enjoy/models/mongoid/menu'
-      autoload :Page, 'enjoy/models/mongoid/page'
-      autoload :News, 'enjoy/models/mongoid/news'
-      autoload :ContactMessage, 'enjoy/models/mongoid/contact_message'
+      # autoload :SitemapData,  'enjoy/models/mongoid/sitemap_data'
+      # autoload :Seo,  'enjoy/models/mongoid/seo'
+      # autoload :Menu, 'enjoy/models/mongoid/menu'
+      # autoload :Page, 'enjoy/models/mongoid/page'
+      # autoload :News, 'enjoy/models/mongoid/news'
+      # autoload :ContactMessage, 'enjoy/models/mongoid/contact_message'
 
       autoload :EmbeddedElement,      'enjoy/models/mongoid/embedded_element'
 
-      autoload :EmbeddedGalleryImage, 'enjoy/models/mongoid/embedded_gallery_image'
-      autoload :GalleryImage,         'enjoy/models/mongoid/gallery_image'
-      autoload :Gallery,              'enjoy/models/mongoid/gallery'
-
-      autoload :PageBlock,             'enjoy/models/mongoid/page_block'
-      autoload :PageBlockset,          'enjoy/models/mongoid/page_blockset'
+      # autoload :EmbeddedGalleryImage, 'enjoy/models/mongoid/embedded_gallery_image'
+      # autoload :GalleryImage,         'enjoy/models/mongoid/gallery_image'
+      # autoload :Gallery,              'enjoy/models/mongoid/gallery'
+      #
+      # autoload :PageBlock,             'enjoy/models/mongoid/page_block'
+      # autoload :PageBlockset,          'enjoy/models/mongoid/page_blockset'
     end
 
     module ActiveRecord
-      autoload :SitemapData,  'enjoy/models/active_record/sitemap_data'
-      autoload :Seo,  'enjoy/models/active_record/seo'
-      autoload :Menu, 'enjoy/models/active_record/menu'
-      autoload :Page, 'enjoy/models/active_record/page'
-      autoload :News, 'enjoy/models/active_record/news'
-      autoload :ContactMessage, 'enjoy/models/active_record/contact_message'
+      # autoload :SitemapData,  'enjoy/models/active_record/sitemap_data'
+      # autoload :Seo,  'enjoy/models/active_record/seo'
+      # autoload :Menu, 'enjoy/models/active_record/menu'
+      # autoload :Page, 'enjoy/models/active_record/page'
+      # autoload :News, 'enjoy/models/active_record/news'
+      # autoload :ContactMessage, 'enjoy/models/active_record/contact_message'
     end
   end
 
   module Controllers
-    autoload :Contacts, 'enjoy/controllers/contacts'
-    autoload :News, 'enjoy/controllers/news'
-    autoload :Pages, 'enjoy/controllers/pages'
-    autoload :Search, 'enjoy/controllers/search'
+    # autoload :Contacts, 'enjoy/controllers/contacts'
+    # autoload :News, 'enjoy/controllers/news'
+    # autoload :Pages, 'enjoy/controllers/pages'
+    # autoload :Search, 'enjoy/controllers/search'
   end
 end
 

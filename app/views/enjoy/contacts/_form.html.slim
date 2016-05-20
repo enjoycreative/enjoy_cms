@@ -1,7 +1,0 @@
-= simple_form_for @contact_message, url: enjoy_contacts_path, html: {data: {remote: true }} do |f|
-  = f.input :name
-  = f.input :email
-  = f.input :phone
-  = f.input :content, as: :text
-  = f.input :captcha, as: :simple_captcha
-  = f.submit t('enjoy.send')

@@ -7,7 +7,7 @@ module Enjoy
     include Generators::Utils::InstanceMethods
 
     desc 'Enjoy CanCan Ability config generator'
-    def ability
+    def install
       template 'ability.erb', 'app/models/ability.rb'
     end
   end

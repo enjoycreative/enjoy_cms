@@ -11,14 +11,8 @@ module Enjoy
   end
 
   class Configuration
-    attr_accessor :news_image_styles
-    attr_accessor :news_per_page
-    attr_accessor :news_excerpt
-    attr_accessor :news_content_required
-
     attr_accessor :main_index_layout
     attr_accessor :error_layout
-    attr_accessor :menu_max_depth
 
     attr_accessor :search_enabled
     attr_accessor :search_per_page
@@ -33,15 +27,10 @@ module Enjoy
 
     attr_accessor :recreate_contact_message_action
 
-    def initialize
-      @news_image_styles = {
-          main:  '400x200>',
-          thumb: '200x100>'
-      }
-      @news_per_page = 10
-      @news_excerpt = 12
-      @news_content_required = true
+    attr_accessor :ability_manager_config
+    attr_accessor :ability_admin_config
 
+    def initialize
       @main_index_layout = 'application'
       @error_layout = 'application'
       @menu_max_depth = 2
@@ -50,22 +39,20 @@ module Enjoy
       @search_per_page = 10
       @search_models = []
 
-      @contacts_captcha = false
-      @contacts_fields = {}
-      @contacts_message_required = true
-
-      @contacts_captcha_error_message = "Код проверки введен неверно"
-      @recreate_contact_message_action = "new"
-
       @localize = false
-    end
 
-    def search_enabled=(val)
-      @search_enabled = val
-      if @search_enabled
-        @search_models << 'Page'
-        @search_models << 'News'
-      end
+      @ability_manager_config = []
+      @ability_manager_config << {
+        method: :can,
+        model: RailsAdminSettings::Setting,
+        actions: [:edit, :update]
+      }
+      @ability_admin_config = []
+      @ability_admin_config << {
+        method: :can,
+        model: RailsAdminSettings::Setting,
+        actions: :manage
+      }
     end
   end
 end

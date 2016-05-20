@@ -18,6 +18,9 @@ if Enjoy.mongoid?
             return self.#{_html_field_name} unless self.#{name}_clear
             clean_#{name}
           end
+          def #{name}=(val)
+            self.#{_html_field_name} = val
+          end
 
           def clean_#{name}
             self.#{_html_field_name} ||= ""

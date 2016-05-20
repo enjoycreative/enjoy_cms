@@ -3,11 +3,8 @@ class Ability
 
   def initialize(user)
     if !user.nil? and (user.admin? or user.manager?)
-      can :read, :all
       can :access, :rails_admin   # grant access to rails_admin
       can :dashboard              # grant access to the dashboard
-
-      can :comments, :all         #RailsAdminComments
 
       if user.admin?
         admin_ui(user)
@@ -15,34 +12,34 @@ class Ability
         manager_ui(user)
       end
 
-      cannot [:new, :create], Enjoy::Seo
-      cannot [:new, :create], Enjoy::SitemapData
+      can :index, :all
+      can :read, :all
+      can :history, :all
+      can :export, :all
+
+      can :comments, :all         #RailsAdminComments::Comments
+      can :model_comments, :all   #RailsAdminComments::ModelComments
+
+      user.ability.to_cancancan(self) if user.ability
+
+      if defined?(RailsAdminUserAbilities)
+        cannot :manage, RailsAdminUserAbilities::UserAbility
+      end
     end
   end
 
   def admin_ui(user)
-    can :manage, :all
+    can :manage, User
+    can :user_abilities, User
+
+    Enjoy.cancancan_admin_rules self
   end
 
   def manager_ui(user)
-    cannot :manage, Enjoy::Menu
     cannot [:edit, :destroy, :new, :create], User
-    can :edit, user
+    can :edit, User, _id: user._id
+    cannot :user_abilities, :all
 
-    manager_models.each do |model|
-      can manager_actions, model
-    end
-  end
-
-  def manager_actions
-    [:edit, :new, :create, :nested_set, :sort_embedded]
-  end
-
-  def manager_models
-    [
-      Enjoy::Page, Enjoy::News,
-      Enjoy::Seo, Enjoy::SitemapData,
-      RailsAdminSettings::Setting
-    ]
+    Enjoy.cancancan_manager_rules self
   end
 end
