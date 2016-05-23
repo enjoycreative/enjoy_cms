@@ -37,7 +37,7 @@ require 'ckeditor'
 
 # require 'kaminari'
 # require 'addressable/uri'
-require 'turbolinks'
+# require 'turbolinks'
 
 require 'enjoy/model'
 require 'enjoy/engine'
@@ -87,7 +87,7 @@ module Enjoy
     module Mongoid
       autoload :EmbeddedElement,      'enjoy/models/mongoid/embedded_element'
     end
-    
+
     module ActiveRecord
     end
   end
