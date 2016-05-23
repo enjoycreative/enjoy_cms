@@ -1,7 +1,7 @@
 #= require jquery
 #= require jquery_ujs
 
-#= require turbolinks
+# require turbolinks
 
 #= require ../head.load.js
 #= require ../jquery.placeholder.js
