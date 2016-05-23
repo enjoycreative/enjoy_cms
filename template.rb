@@ -14,7 +14,7 @@ remove_file 'Gemfile'
 create_file 'Gemfile' do <<-TEXT
 source 'https://rubygems.org'
 
-gem 'rails', '4.2.4' #'~> 5.0.0.beta3'
+gem 'rails', '4.2.6' #'~> 5.0.0.rc1'
 #{if mongoid then "gem 'mongoid'" else "gem 'pg'" end}
 
 gem 'sass'
@@ -22,7 +22,13 @@ gem 'sass-rails'
 gem 'compass'
 gem 'compass-rails'
 
-#{if mongoid then "gem 'enjoy_cms_mongoid'" else "gem 'enjoy_cms_activerecord'" end}, path: '/home/ack/www/enjoy_cms' #'~> 0.4.0.beta1'
+gem 'ack-paperclip-meta'#, path: '/home/ack/www/paperclip-meta'
+
+gem 'rails_admin_multiple_file_upload'
+gem 'rails_admin_comments', github: "enjoycreative/rails_admin_comments" #path: '/home/ack/www/rails_admin/rails_admin_comments'
+
+##{if mongoid then "gem 'enjoy_cms_mongoid'" else "gem 'enjoy_cms_activerecord'" end}, path: '/home/ack/www/enjoy/enjoy_cms' #'~> 0.4.0.beta1'
+#{if mongoid then "gem 'enjoy_cms_mongoid'" else "gem 'enjoy_cms_activerecord'" end}, github: "enjoycreative/enjoy_cms" #'~> 0.4.0.beta1'
 
 gem 'devise'
 
