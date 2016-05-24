@@ -22,6 +22,7 @@ gem 'sass-rails'
 gem 'compass'
 gem 'compass-rails'
 
+#{if mongoid then "gem 'mongoid-paperclip'" else "gem 'paperclip'" end}
 gem 'ack-paperclip-meta', github: "enjoycreative/paperclip-meta"#, path: '/home/ack/www/paperclip-meta'
 
 gem 'rails_admin_multiple_file_upload'
