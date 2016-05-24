@@ -1,5 +1,5 @@
 module Enjoy::PoweredHelper
-  def render_powered_block
+  def render_enjoy_powered_block
     content_tag :div, class: 'powered' do
       ret = []
       ret << content_tag(:span, class: 'powered') do

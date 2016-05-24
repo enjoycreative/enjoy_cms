@@ -325,8 +325,14 @@ inject_into_file 'app/models/user.rb', before: /^end/ do <<-TEXT
 
   def self.generate_first_admin_user
     if User.all.count == 0
-      _email_pass = 'admin@#{app_name.downcase}.ru'
-      User.create(roles: ["admin"], email: _email_pass, password: _email_pass, password_confirmation: _email_pass)
+      _email_pass = 'admin@#{app_name.dasherize.downcase}.ru'
+      if User.create(roles: ["admin"], email: _email_pass, password: _email_pass, password_confirmation: _email_pass)
+        puts "User with email and password '\#{_email_pass}' was created!"
+      else
+        puts 'error'
+      end
+    else
+      puts 'error'
     end
   end
 
