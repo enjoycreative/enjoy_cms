@@ -22,8 +22,8 @@ gem 'sass-rails'
 gem 'compass'
 gem 'compass-rails'
 
-#{if mongoid then "gem 'mongoid-paperclip'" else "gem 'paperclip'" end}
-gem 'ack-paperclip-meta', github: "enjoycreative/paperclip-meta"#, path: '/home/ack/www/paperclip-meta'
+##{if mongoid then "gem 'mongoid-paperclip'" else "gem 'paperclip'" end}
+#gem 'ack-paperclip-meta', github: "enjoycreative/paperclip-meta"#, path: '/home/ack/www/paperclip-meta'
 
 gem 'rails_admin_multiple_file_upload'
 gem 'rails_admin_comments', github: "enjoycreative/rails_admin_comments" #path: '/home/ack/www/rails_admin/rails_admin_comments'
@@ -321,6 +321,13 @@ inject_into_file 'app/models/user.rb', before: /^end/ do <<-TEXT
 
       scope :\#{r.pluralize}, -> { any_in(roles: "\#{r}") }
     EVAL
+  end
+
+  def self.generate_first_admin_user
+    if User.all.count == 0
+      _email_pass = 'admin@#{app_name.downcase}.ru'
+      User.create(roles: ["admin"], email: _email_pass, password: _email_pass, password_confirmation: _email_pass)
+    end
   end
 
   rails_admin do
