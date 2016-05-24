@@ -22,7 +22,7 @@ gem 'sass-rails'
 gem 'compass'
 gem 'compass-rails'
 
-gem 'ack-paperclip-meta'#, path: '/home/ack/www/paperclip-meta'
+gem 'ack-paperclip-meta', github: "enjoycreative/ack-paperclip-meta"#, path: '/home/ack/www/paperclip-meta'
 
 gem 'rails_admin_multiple_file_upload'
 gem 'rails_admin_comments', github: "enjoycreative/rails_admin_comments" #path: '/home/ack/www/rails_admin/rails_admin_comments'
