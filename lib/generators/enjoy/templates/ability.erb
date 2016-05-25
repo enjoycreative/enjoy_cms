@@ -20,7 +20,7 @@ class Ability
       can :comments, :all         #RailsAdminComments::Comments
       can :model_comments, :all   #RailsAdminComments::ModelComments
 
-      user.ability.to_cancancan(self) if user.ability
+      user.ability.to_cancancan(self) if user.respond_to?(:ability) and user.ability
 
       if defined?(RailsAdminUserAbilities)
         cannot :manage, RailsAdminUserAbilities::UserAbility
