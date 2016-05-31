@@ -26,5 +26,6 @@ module Enjoy
 
       include Enjoy::RailsAdminPatch
     end
+
   end
 end
