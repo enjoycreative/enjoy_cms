@@ -34,4 +34,6 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency 'rake'
 
   spec.add_development_dependency 'activerecord-session_store'
+
+  spec.add_dependency 'kaminari'
 end

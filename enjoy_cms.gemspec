@@ -37,4 +37,6 @@ Gem::Specification.new do |spec|
   spec.add_dependency 'rails_admin_toggleable'
 
   spec.add_dependency 'rails_admin_settings'
+
+  spec.add_dependency 'kaminari'
 end

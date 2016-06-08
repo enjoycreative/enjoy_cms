@@ -16,6 +16,8 @@ h2= I18n.t("shared.enter_site")
         = f.label :remember_me, I18n.t("shared.remember_me")
 
   .actions
+    - if Enjoy.config.recaptcha_support
+      = recaptcha_tags
     = f.submit I18n.t("shared.enter")
 br
 

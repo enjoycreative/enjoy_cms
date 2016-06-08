@@ -36,4 +36,6 @@ Gem::Specification.new do |spec|
   spec.add_dependency 'mongo_session_store-rails4'
 
   spec.add_dependency "rails_admin_mongoid_localize_field"
+
+  # spec.add_dependency 'kaminari-mongoid'
 end

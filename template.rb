@@ -433,7 +433,8 @@ generate "rspec:install"
 remove_file 'config/routes.rb'
 create_file 'config/routes.rb' do <<-TEXT
 Rails.application.routes.draw do
-  devise_for :users
+  devise_for :users, controllers: {sessions: 'enjoy/sessions'}
+  
   mount RailsAdmin::Engine => '/admin', as: 'rails_admin'
   mount Ckeditor::Engine => '/ckeditor'
 

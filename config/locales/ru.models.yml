@@ -61,14 +61,14 @@ ru:
         first_name: Имя
         last_name: Фамилия
         phone: Телефон
-        
+
   activerecord:
     <<: *mongoid
 
   activemodel:
     errors:
       messages:
-        invalid_email_address: "^Неверный e-mail"
+        invalid_email_address: "Неверный e-mail"
 
   admin:
     scopes:

@@ -30,6 +30,8 @@ module Enjoy
     attr_accessor :ability_manager_config
     attr_accessor :ability_admin_config
 
+    attr_accessor :recaptcha_support
+
     def initialize
       @main_index_layout = 'application'
       @error_layout = 'application'
@@ -53,6 +55,8 @@ module Enjoy
         model: RailsAdminSettings::Setting,
         actions: :manage
       }
+
+      @recaptcha_support = defined?(Recaptcha)
     end
   end
 end

@@ -1,0 +1,2 @@
+module Enjoy::HomeHelper
+end
