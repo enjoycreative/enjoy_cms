@@ -1,6 +1,6 @@
 # shamelessly stolen from https://github.com/sferik/rails_admin/blob/master/lib/generators/rails_admin/utils.rb
 
-module Enjoy
+module Enjoy::Cms
   module Generators
     module Utils
       module InstanceMethods

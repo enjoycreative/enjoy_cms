@@ -3,13 +3,13 @@
 require 'rails/generators'
 require File.expand_path('../utils', __FILE__)
 
-module Enjoy
+module Enjoy::Cms
   class AdminGenerator < Rails::Generators::Base
     source_root File.expand_path('../templates', __FILE__)
     include Generators::Utils::InstanceMethods
 
     #argument :_namespace, type: :string, required: false, desc: 'RailsAdmin url namespace'
-    desc 'Enjoy RailsAdmin config generator'
+    desc 'Enjoy CMS RailsAdmin config generator'
 
     def install
       #namespace = ask_for('Where do you want to mount rails_admin?', 'admin', _namespace)

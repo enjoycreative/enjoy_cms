@@ -1,10 +1,10 @@
 require 'rails/generators'
 
-module Enjoy
+module Enjoy::Cms
   class AssetsGenerator < Rails::Generators::Base
     source_root File.expand_path('../templates/assets', __FILE__)
 
-    desc 'Enjoy assets generator'
+    desc 'Enjoy CMS assets generator'
     def install
       assets_files.each do |f|
         template "#{f}.erb", "app/assets/#{f}"

@@ -13,33 +13,22 @@ module Enjoy
   class Configuration
     attr_accessor :main_index_layout
     attr_accessor :error_layout
-
-    attr_accessor :search_enabled
-    attr_accessor :search_per_page
-    attr_accessor :search_models
-
-    attr_accessor :contacts_captcha
-    attr_accessor :contacts_fields
-    attr_accessor :contacts_message_required
-    attr_accessor :contacts_captcha_error_message
+    attr_accessor :menu_max_depth
 
     attr_accessor :localize
-
-    attr_accessor :recreate_contact_message_action
 
     attr_accessor :ability_manager_config
     attr_accessor :ability_admin_config
 
+    attr_accessor :admin_enter_captcha
+    attr_accessor :registration_captcha
     attr_accessor :recaptcha_support
+    attr_accessor :simple_captcha_support
 
     def initialize
       @main_index_layout = 'application'
       @error_layout = 'application'
       @menu_max_depth = 2
-
-      @search_enabled = false
-      @search_per_page = 10
-      @search_models = []
 
       @localize = false
 
@@ -57,6 +46,10 @@ module Enjoy
       }
 
       @recaptcha_support = defined?(Recaptcha)
+      @simple_captcha_support = defined?(SimpleCaptcha)
+
+      @admin_enter_captcha = @recaptcha_support or @simple_captcha_support
+      @registration_captcha = @admin_enter_captcha
     end
   end
 end

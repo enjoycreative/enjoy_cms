@@ -13,7 +13,7 @@ require 'enjoy/simple_form_patch'
 
 require 'geocoder'
 
-require 'simple_captcha'
+# require 'simple_captcha'
 # require 'validates_email_format_of'
 require 'filename_to_slug'
 

@@ -1,5 +1,5 @@
 h2 Регистрация
-= simple_form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f|
+= simple_form_for(resource, as: resource_name, url: user_registration_path) do |f|
   = devise_error_messages!
   .field
     = f.label :email, label: I18n.t("shared.email")
@@ -16,6 +16,12 @@ h2 Регистрация
     br
     = f.password_field :password_confirmation, label: I18n.t("shared.password_confirmation"), autocomplete: "off"
   .actions
-    = f.submit "Зарегистрироваться"
+    - if Enjoy.config.registration_captcha
+      - if Enjoy.config.recaptcha_support
+        = recaptcha_tags
+      - elsif Enjoy.config.simple_captcha_support
+        = f.input :captcha, as: :simple_captcha, label: false
+        
+    = f.submit I18n.t("shared.registration")
 br
 = render "devise/shared/links"

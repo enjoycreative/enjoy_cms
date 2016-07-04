@@ -84,7 +84,7 @@ module Enjoy::Errors
   end
 
   def render_error(code = 500)
-    render template: "errors/error_#{code}", formats: [:html], handlers: [:slim], layout: Enjoy.config.error_layout, status: code
+    render template: "enjoy/errors/error_#{code}", formats: [:html], handlers: [:slim], layout: Enjoy.config.error_layout, status: code
   end
 
   def rails_admin?

@@ -4,4 +4,4 @@
       - next if message.blank?
       div{class="message #{type}"}
         a.close_flash &times;
-        = simple_format(message.strip)
+        = simple_format(message.strip) if message.is_a?(String)

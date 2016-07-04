@@ -1,5 +1,5 @@
 h2 Редактирование профиля
-= simple_form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f|
+= simple_form_for(resource, as: resource_name, url: user_registration_path) do |f|
   /= devise_error_messages!
   .field
     = f.label :email, I18n.t("shared.email")

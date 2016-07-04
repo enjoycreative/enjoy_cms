@@ -1,12 +1,12 @@
 require 'rails/generators'
 
-module Enjoy
+module Enjoy::Cms
   class ScriptsGenerator < Rails::Generators::Base
     source_root File.expand_path('../templates/scripts', __FILE__)
 
     argument :app_name,   type: :string
 
-    desc 'Enjoy scripts generator'
+    desc 'Enjoy CMS scripts generator'
     def install
       %w( assets_precompile.sh
           bundle_production.sh

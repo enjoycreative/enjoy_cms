@@ -24,7 +24,7 @@ Gem::Specification.new do |spec|
 
   spec.add_dependency 'jquery-rails'
   spec.add_dependency 'simple_form'
-  spec.add_dependency 'glebtv-simple_captcha'
+  # spec.add_dependency 'glebtv-simple_captcha'
   # spec.add_dependency 'galetahub-simple_captcha'
   spec.add_dependency 'coffee-rails'
   spec.add_dependency 'devise'
@@ -32,7 +32,7 @@ Gem::Specification.new do |spec|
   spec.add_dependency 'ckeditor'
   spec.add_dependency 'geocoder'
 
-  spec.add_dependency 'rails_admin', '~> 0.8.0'
+  spec.add_dependency 'rails_admin', '~> 0.8.1'
   spec.add_dependency 'rails_admin_nested_set'
   spec.add_dependency 'rails_admin_toggleable'
 
