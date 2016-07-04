@@ -1,7 +1,7 @@
 module Enjoy::Errors
   extend ActiveSupport::Concern
   included do
-    if Rails.env.production? || Rails.env.staging?
+    if Rails.env.production? || Rails.env.staging? || (respond_to?(:enjoy_check_errors) and enjoy_check_errors)
       rescue_from Exception, with: :render_500
       rescue_from ActionController::RoutingError, with: :render_404
       rescue_from ActionController::UnknownController, with: :render_404
