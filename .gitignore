@@ -17,5 +17,7 @@ spec/reports
 test/tmp
 test/version_tmp
 tmp
+
 mongoid/Gemfile.lock
 activerecord/Gemfile.lock
+/Gemfile.lock
