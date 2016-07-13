@@ -14,7 +14,7 @@ remove_file 'Gemfile'
 create_file 'Gemfile' do <<-TEXT
 source 'https://rubygems.org'
 
-gem 'rails', '4.2.6' #'~> 5.0.0.rc1'
+gem 'rails', '4.2.6'
 #{if mongoid then "gem 'mongoid'" else "gem 'pg'" end}
 
 gem 'sass'
@@ -191,15 +191,6 @@ end
 else
 remove_file 'config/database.yml'
 create_file 'config/database.yml' do <<-TEXT
-development:
-  adapter: postgresql
-  encoding: unicode
-  database: #{app_name.downcase}_development
-  pool: 5
-  username: #{app_name.downcase}
-  password: #{app_name.downcase}
-  template: template0
-TEXT
 end
 say "Please create a PostgreSQL user #{app_name.downcase} with password #{app_name.downcase} and a database #{app_name.downcase}_development owned by him for development NOW.", :red
 ask("Press <enter> when done.", true)
@@ -467,7 +458,7 @@ end
 # end
 
 
-generate "enjoy:rack"
+generate "enjoy:cms:rack"
 
 
 remove_file 'app/assets/stylesheets/application.css'

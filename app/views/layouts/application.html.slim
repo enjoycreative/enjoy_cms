@@ -14,9 +14,9 @@ html lang="ru"
     /[if lt IE 9]
       = javascript_include_tag "//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.2/html5shiv.min.js", async: async
     css:
-      #{Settings.custom_css(default: '', kind: :css)}    
+      #{Settings.custom_css(default: '', kind: :css, title: "Дополнительный CSS")}    
     javascript:
-      #{Settings.custom_js(default: '', kind: :js)}
+      #{Settings.custom_js(default: '', kind: :js, title: "Дополнительный JS")}
       
   body
     #root

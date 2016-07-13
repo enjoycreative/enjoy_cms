@@ -29,6 +29,7 @@ class Ability
   end
 
   def admin_ui(user)
+    can :manage, :all
     can :manage, User
     can :user_abilities, User
 
@@ -36,6 +37,8 @@ class Ability
   end
 
   def manager_ui(user)
+    can :read, :all
+    can :show, :all
     cannot [:edit, :destroy, :new, :create], User
     can :edit, User, _id: user._id
     cannot :user_abilities, :all
