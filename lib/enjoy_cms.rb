@@ -20,7 +20,7 @@ require 'filename_to_slug'
 require 'rails_admin'
 require 'enjoy/rails_admin_ext/config'
 
-require 'enjoy/rails_admin_ext/enjoy_hash'
+# require 'enjoy/rails_admin_ext/enjoy_hash'
 require 'enjoy/rails_admin_ext/enjoy_html'
 require 'enjoy/rails_admin_ext/enjoy_slugs'
 require 'enjoy/rails_admin_ext/group_patch'

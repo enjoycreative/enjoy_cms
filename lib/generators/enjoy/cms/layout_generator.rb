@@ -8,7 +8,7 @@ module Enjoy::Cms
 
     desc 'Enjoy CMS Layout generator'
     def layout
-      template('app/views/layouts/application.html.slim', 'app/views/layouts/application.html.slim')
+      template('../app/views/layouts/application.html.slim', 'app/views/layouts/application.html.slim')
     end
   end
 end

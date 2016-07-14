@@ -1,4 +1,4 @@
-if Enjoy.mongoid?
+if false #Enjoy.mongoid?
   module Enjoy::HashField
     extend ActiveSupport::Concern
 
@@ -12,8 +12,8 @@ if Enjoy.mongoid?
         meth_hsh = "#{name}_hash"
         meth_json = "#{name}_json"
         if opts[:localize]
-          meth_str_t = "#{name}_str_translations"
-          meth_hsh_t = "#{name}_hash_translations"
+          meth_str_t = "#{meth_str}_translations"
+          meth_hsh_t = "#{meth_hsh}_translations"
           class_eval <<-EVAL
             def #{meth_str_t}=(val)
               return self.#{meth_hsh_t} = {} if val.blank?
@@ -38,6 +38,9 @@ if Enjoy.mongoid?
             def #{meth}
               self.#{meth_hsh}
             end
+            def #{meth}=(val)
+              self.#{meth_str} = val
+            end
             def #{meth_json}
               self.#{meth_hsh}.to_json if self.#{meth_hsh}
             end
@@ -47,9 +50,6 @@ if Enjoy.mongoid?
                 _has_errors = false
                 I18n.available_locales.each do |l|
                   I18n.with_locale(l) do
-                    puts self.#{meth_hsh_t}[l]
-                    puts self.#{meth_str}
-                    puts "_"
                     if self.#{meth_hsh_t}[l].nil? and !self[:#{meth_str_t}][l].blank?
                       _has_errors ||= true
                       _meth = "#{meth_hsh_t}_\#{l}".to_s
@@ -69,9 +69,16 @@ if Enjoy.mongoid?
           class_eval <<-EVAL
             def #{meth_str}=(val)
               return self.#{meth_hsh} = {} if val.blank?
-              begin
-                self.#{meth_hsh} = JSON.parse(val)
-              rescue
+              if val.is_a?(String)
+                begin
+                  begin
+                    self[:#{meth_str}] = JSON.parse(val)
+                  rescue
+                    self[:#{meth_str}] = YAML.load(val)
+                  end
+                rescue
+                end
+              elsif val.is_a?(Hash)
                 self[:#{meth_str}] = val
               end
             end
@@ -80,6 +87,9 @@ if Enjoy.mongoid?
             end
             def #{meth}
               self.#{meth_hsh}
+            end
+            def #{meth}=(val)
+              self.#{meth_str} = val
             end
             def #{meth_json}
               self.#{meth_hsh}.to_json if self.#{meth_hsh}
