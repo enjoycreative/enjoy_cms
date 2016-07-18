@@ -3,7 +3,7 @@ version = rails_spec.version.to_s
 
 mongoid = options[:skip_active_record]
 
-if Gem::Version.new(version) < Gem::Version.new('4.2.6')
+if Gem::Version.new(version) < Gem::Version.new('4.2.7')
   puts "You are using an old version of Rails (#{version})"
   puts "Please update"
   puts "Stopping"
@@ -14,7 +14,7 @@ remove_file 'Gemfile'
 create_file 'Gemfile' do <<-TEXT
 source 'https://rubygems.org'
 
-gem 'rails', '4.2.6'
+gem 'rails', '4.2.7'
 #{if mongoid then "gem 'mongoid'" else "gem 'pg'" end}
 
 gem 'sass'
