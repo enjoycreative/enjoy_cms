@@ -38,7 +38,7 @@ For activerecord, generate migrations and run them
 
 ### Using app generator
 
-Make sure you have rails 5.0 installed
+Make sure you have rails 4.2 installed
 
     rails -v
 
