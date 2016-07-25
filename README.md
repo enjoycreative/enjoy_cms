@@ -1,6 +1,8 @@
 # EnjoyCMS
 
-# DEVELOPMENT VERSION. DO NOT USE IT
+#### Inspired by [RocketCMS](https://github.com/rs-pro/rocket_cms)
+
+# DEVELOPMENT VERSION
 
 Rails + RailsAdmin + Mongoid/PostgreSQL CMS
 
@@ -124,7 +126,7 @@ gem 'rails_admin_mongoid_localize_field'
 
 ### Documentation
 
-It's basically Mongoid + Rails Admin + some of my common models and controllers, capistrano config (from root repo), etc.
+It's basically Mongoid + Rails Admin + some of my common models and controllers, etc.
 
 See their documentation for more info
 
