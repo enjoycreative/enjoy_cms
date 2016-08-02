@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    enjoy_cms (0.4.0.4)
+    enjoy_cms (0.4.0.5)
       ckeditor
       coffee-rails
       devise

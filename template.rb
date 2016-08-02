@@ -327,15 +327,28 @@ inject_into_file 'app/models/user.rb', before: /^end/ do <<-TEXT
   end
 
   def self.generate_first_admin_user
-    if User.all.count == 0
+    if User.admins.all.count == 0
       _email_pass = 'admin@#{app_name.dasherize.downcase}.ru'
       if User.new(roles: ["admin"], email: _email_pass, password: _email_pass, password_confirmation: _email_pass).save
-        puts "User with email and password '\#{_email_pass}' was created!"
+        puts "AdminUser with email and password '\#{_email_pass}' was created!"
       else
-        puts 'Creating User error'
+        puts 'Creating AdminUser error'
       end
     else
-      puts 'Users are here already'
+      puts 'AdminUsers are here already'
+    end
+  end
+
+  def self.generate_first_manager_user
+    if User.managers.all.count == 0
+      _email_pass = 'manager@#{app_name.dasherize.downcase}.ru'
+      if User.create(roles: ["manager"], email: _email_pass, password: _email_pass, password_confirmation: _email_pass)
+        puts "ManagerUser with email and password '\#{_email_pass}' was created!"
+      else
+        puts 'Creating ManagerUser error'
+      end
+    else
+      puts 'ManagerUsers are here already'
     end
   end
 
@@ -483,12 +496,8 @@ generate "enjoy:cms:assets", app_name
 remove_file 'public/robots.txt'
 generate "enjoy:cms:robots"
 
-
 #god+unicorn
 generate "enjoy:cms:unicorn_god", app_name
-
-
-
 #scripts
 generate "enjoy:cms:scripts", app_name
 

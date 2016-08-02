@@ -17,13 +17,19 @@ require 'geocoder'
 # require 'validates_email_format_of'
 require 'filename_to_slug'
 
+
 require 'rails_admin'
 require 'enjoy/rails_admin_ext/config'
 
 # require 'enjoy/rails_admin_ext/enjoy_hash'
 require 'enjoy/rails_admin_ext/enjoy_html'
 require 'enjoy/rails_admin_ext/enjoy_slugs'
-require 'enjoy/rails_admin_ext/group_patch'
+
+require 'enjoy/rails_admin_ext/patches/field_patch'
+require 'enjoy/rails_admin_ext/patches/field_patch'
+require 'enjoy/rails_admin_ext/patches/group_patch'
+require 'enjoy/rails_admin_ext/patches/enjoy_cms_group'
+
 
 require 'rails_admin_nested_set'
 require 'rails_admin_toggleable'

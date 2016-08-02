@@ -1,3 +1,4 @@
+require 'rails_admin'
 module Enjoy::RailsAdminGroupPatch
   class << self
     def enjoy_cms_group(config, fields = {})
@@ -5,8 +6,11 @@ module Enjoy::RailsAdminGroupPatch
 
       if fields.is_a?(Array)
         fields.each do |_group|
-          config.group (_group[:name] || "") do
+          config.group (_group[:name] || :default) do
             active (_group[:active] || false)
+            label _group[:label] if _group[:label].present?
+            help _group[:help] if _group[:help].present?
+            weight _group[:weight] if _group[:weight].present?
             (_group[:fields] || {}).each_pair do |name, type|
               if type.blank?
                 field name
