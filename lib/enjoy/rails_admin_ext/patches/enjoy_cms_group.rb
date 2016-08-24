@@ -6,12 +6,26 @@ module Enjoy::RailsAdminGroupPatch
 
       if fields.is_a?(Array)
         fields.each do |_group|
-          config.group (_group[:name] || :default) do
-            active (_group[:active] || false)
-            label _group[:label] if _group[:label].present?
-            help _group[:help] if _group[:help].present?
-            weight _group[:weight] if _group[:weight].present?
-            (_group[:fields] || {}).each_pair do |name, type|
+          _name_default = :default
+          _name = _group.delete(:name) || _name_default
+          _active_default = (_name == :default ? true : false)
+          _fields_default = {}
+          _group_fields = (_group.delete(:fields) || _fields_default)
+
+          config.group _name do
+            _group.each_pair do |name, val|
+
+              # TODO: find more logical sulution
+              begin
+                begin
+                  send name, val
+                rescue
+                  send name
+                end
+              end
+            end
+
+            _group_fields.each_pair do |name, type|
               if type.blank?
                 field name
               else
@@ -22,6 +36,8 @@ module Enjoy::RailsAdminGroupPatch
                 end
               end
             end
+
+
           end
         end
 

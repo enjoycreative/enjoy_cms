@@ -360,7 +360,7 @@ inject_into_file 'app/models/user.rb', before: /^end/ do <<-TEXT
       field :roles do
         pretty_value do
           render_object = (bindings[:controller] || bindings[:view])
-          render_object.content_tag(:p, bindings[:object].roles.join(", "))
+          render_object.content_tag(:p, bindings[:object].roles.join(", ")) if render_object
         end
       end
     end
@@ -371,14 +371,14 @@ inject_into_file 'app/models/user.rb', before: /^end/ do <<-TEXT
         field :email, :string do
           visible do
             render_object = (bindings[:controller] || bindings[:view])
-            render_object.current_user.admin? or (render_object.current_user.manager? and render_object.current_user == bindings[:object])
+            render_object and (render_object.current_user.admin? or (render_object.current_user.manager? and render_object.current_user == bindings[:object]))
           end
         end
         field :name, :string
         field :login, :string do
           visible do
             render_object = (bindings[:controller] || bindings[:view])
-            render_object.current_user.admin?
+            render_object and render_object.current_user.admin?
           end
         end
       end
@@ -396,7 +396,7 @@ inject_into_file 'app/models/user.rb', before: /^end/ do <<-TEXT
 
           visible do
             render_object = (bindings[:controller] || bindings[:view])
-            render_object.current_user.admin?
+            render_object and render_object.current_user.admin?
           end
         end
       end
@@ -406,13 +406,13 @@ inject_into_file 'app/models/user.rb', before: /^end/ do <<-TEXT
         field :password do
           visible do
             render_object = (bindings[:controller] || bindings[:view])
-            render_object.current_user.admin? or render_object.current_user == bindings[:object]
+            render_object and (render_object.current_user.admin? or render_object.current_user == bindings[:object])
           end
         end
         field :password_confirmation do
           visible do
             render_object = (bindings[:controller] || bindings[:view])
-            render_object.current_user.admin? or render_object.current_user == bindings[:object]
+            render_object and (render_object.current_user.admin? or render_object.current_user == bindings[:object])
           end
         end
       end

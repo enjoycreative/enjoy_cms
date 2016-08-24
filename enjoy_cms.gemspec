@@ -6,7 +6,7 @@ Gem::Specification.new do |spec|
   spec.name          = 'enjoy_cms'
   spec.version       = Enjoy::VERSION
   spec.authors       = ['Alexander Kiseliev']
-  spec.email         = ["dev@enjoycreate.ru"]
+  spec.email         = ["i43ack@gmail.com"]
   spec.description   = %q{EnjoyCMS }
   spec.summary       = %q{Please DO NOT use this gem directly, use enjoy_cms_mongoid or enjoy_cms_activerecord instead!}
   spec.homepage      = 'https://github.com/enjoycreative/enjoy_cms'

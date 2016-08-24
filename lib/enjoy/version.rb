@@ -1,3 +1,3 @@
 module Enjoy
-  VERSION = "0.4.0.5"
+  VERSION = "0.4.1"
 end
